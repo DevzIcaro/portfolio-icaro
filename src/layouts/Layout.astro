@@ -1,26 +1,23 @@
 ---
-import "src/styles/global.css";
+import "../styles/global.css";
+import SidebarMenu from "@/components/SideBarMenu";
 ---
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+<html lang="pt-br" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Ícaro Carneiro | Portfolio</title>
+  </head>
+  <body class="bg-[#0B0B0B] text-[#F5F5F5]">
+    <div class="flex min-h-screen">
+      <aside class="hidden md:block w-72 h-screen sticky top-0 border-r border-[#111111]">
+        <SidebarMenu  client:load/>
+      </aside>
+      
+      <main class="flex-1 h-screen overflow-y-auto">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>
