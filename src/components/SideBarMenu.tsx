@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Home, User, Briefcase, Code2, Cpu, MessageSquare, Mail, Languages } from "lucide-react";
+import { translations } from "@/i18n/translations";
+import { useLanguage } from "@/context/LanguageContext";
 
 // Definição de tipos para garantir segurança
 type Language = 'pt' | 'en';
@@ -17,24 +19,13 @@ const navItems = [
   { icon: Mail, id: "contact" },
 ];
 
-const dict = {
-  pt: {
-    role: "Engenheiro Full Stack",
-    nav: ["Início", "Sobre", "Experiência", "Projetos", "Skills", "Serviços", "Contato"],
-    status: "Disponível para Projetos"
-  },
-  en: {
-    role: "Full Stack Engineer",
-    nav: ["Home", "About", "Experience", "Projects", "Skills", "Services", "Contact"],
-    status: "Available for Projects"
-  }
-};
 
 export default function SidebarMenu() {
-  const [lang, setLang] = useState<Language>('pt');
-  const t = dict[lang];
+  const {lang, toggleLang} = useLanguage();
 
-  const toggleLang = () => setLang(lang === 'pt' ? 'en' : 'pt');
+  const currentLang = lang || 'pt';
+  const t = translations[currentLang].sidebar;
+
 
   return (
     <motion.aside 
@@ -87,3 +78,4 @@ export default function SidebarMenu() {
     </motion.aside>
   );
 }
+

@@ -3,29 +3,13 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Mail } from "lucide-react";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa6";
-import { useLanguage } from "src/context/LanguageContext"; // Importa o hook
+import { useLanguage } from "src/context/LanguageContext"; 
+import { translations } from "src/i18n/translations"
 
-
-const translations = {
-  pt: {
-    status: "Disponível para novos desafios",
-    title: "Ícaro\nCarneiro",
-    roles: ["Desenvolvedor Full Stack", "Analista de Sistemas", "Engenheiro de Software", "Entusiasta de Tech"],
-    intro: "Especialista em criar experiências digitais escaláveis, unindo arquitetura robusta a interfaces refinadas. Transformando ideias complexas em código de alta performance.",
-    cta: "Ver Projetos"
-  },
-  en: {
-    status: "Available for new challenges",
-    title: "Ícaro\nCarneiro",
-    roles: ["Full Stack Developer", "System Analyst", "Software Engineer", "Tech Enthusiast"],
-    intro: "Specializing in creating scalable digital experiences, combining robust architecture with refined interfaces. Transforming complex ideas into high-performance code.",
-    cta: "View Projects"
-  }
-};
 
 export default function Hero() {
   const { lang } = useLanguage();
-  const t = translations[lang];
+  const t = translations[lang].hero;
   const [index, setIndex] = useState(0);
 
   useEffect(() => {

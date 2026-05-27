@@ -8,12 +8,14 @@ interface LanguageContextType {
   toggleLang: () => void;
 }
 
-const LanguageContext = createContext<LanguageContextType>({} as LanguageContextType);
+const LanguageContext = createContext<LanguageContextType>({
+  lang: "pt",
+  toggleLang: () => {}
+} as LanguageContextType);
 
 export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
   const [lang, setLang] = useState<Language>('pt');
 
-  // Opcional: Persistência no localStorage
   useEffect(() => {
     const saved = localStorage.getItem('lang') as Language;
     if (saved) setLang(saved);
