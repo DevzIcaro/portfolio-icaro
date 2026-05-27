@@ -8,23 +8,27 @@ interface LanguageContextType {
   toggleLang: () => void;
 }
 
-const LanguageContext = createContext<LanguageContextType>({
+export const LanguageContext = createContext<LanguageContextType>({
   lang: "pt",
   toggleLang: () => {}
-} as LanguageContextType);
+});
 
 export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
   const [lang, setLang] = useState<Language>('pt');
 
   useEffect(() => {
     const saved = localStorage.getItem('lang') as Language;
-    if (saved) setLang(saved);
+    if (saved && (saved === 'pt' || saved === 'en')) {
+      setLang(saved);
+    }
   }, []);
 
   const toggleLang = () => {
-    const next = lang === 'pt' ? 'en' : 'pt';
-    setLang(next);
-    localStorage.setItem('lang', next);
+    setLang((prev) => {
+      const next = prev === 'pt' ? 'en' : 'pt';
+      localStorage.setItem('lang', next);
+      return next;
+    });
   };
 
   return (
@@ -34,4 +38,10 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
   );
 };
 
-export const useLanguage = () => useContext(LanguageContext);
+export const useLanguage = () => {
+  const context = useContext(LanguageContext);
+  if (!context || context.toggleLang.toString() === '() => {}') {
+    throw new Error("useLanguage deve ser usado obrigatoriamente dentro de um LanguageProvider real.");
+  }
+  return context;
+};

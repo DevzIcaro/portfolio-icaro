@@ -1,13 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { Home, User, Briefcase, Code2, Cpu, MessageSquare, Mail, Languages } from "lucide-react";
-import { translations } from "@/i18n/translations";
-import { useLanguage } from "@/context/LanguageContext";
-
-// Definição de tipos para garantir segurança
-type Language = 'pt' | 'en';
+import { translations } from "../i18n/translations";
+import { useLanguage } from "../context/LanguageContext";
 
 const navItems = [
   { icon: Home, id: "home" },
@@ -23,9 +20,10 @@ const navItems = [
 export default function SidebarMenu() {
   const {lang, toggleLang} = useLanguage();
 
-  const currentLang = lang || 'pt';
-  const t = translations[currentLang].sidebar;
+  const t = translations[lang].sidebar;
 
+  console.log("Idioma atual:", lang);
+  console.log("Objeto de tradução carregado:", t);
 
   return (
     <motion.aside 
@@ -41,7 +39,7 @@ export default function SidebarMenu() {
           </div>
           <button 
             onClick={toggleLang}
-            className="p-2 rounded-lg bg-[#111111] text-[#F5F5F5]/50 hover:text-[#C2FFF5] transition-colors"
+            className="p-2 rounded-lg bg-[#111111] cursor-pointer text-[#F5F5F5]/50 hover:text-[#C2FFF5] transition-colors"
             title="Toggle Language"
           >
             <Languages size={18} />
