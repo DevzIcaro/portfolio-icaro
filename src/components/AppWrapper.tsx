@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+// 1. IMPORTANTE: Adicionado o 'useRef' nos imports do React
+import React, { useEffect, useState, useRef } from "react";
 import { LanguageProvider } from "../context/LanguageContext";
 import SidebarMenu from "./SideBarMenu";
 import Hero from "./Hero";
@@ -15,9 +16,29 @@ import Footer from "./Footer";
 export default function AppWrapper() {
   const [mounted, setMounted] = useState(false);
 
+  // 2. CORREÇÃO: Criando a referência que o TypeScript não encontrava
+  const mainRef = useRef<HTMLElement>(null);
+
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleScrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+
+    const targetId = href.replace("#", "");
+    const targetElement = document.getElementById(targetId);
+    const mainContainer = mainRef.current;
+
+    if (targetElement && mainContainer) {
+      const targetPosition = targetElement.offsetTop;
+
+      mainContainer.scrollTo({
+        top: targetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
 
   if (!mounted) {
     return <div className="bg-[#0B0B0B] min-h-screen invisible" />;
@@ -28,12 +49,12 @@ export default function AppWrapper() {
       <div className="flex min-h-screen bg-[#0B0B0B]">
         {/* Sidebar nativa */}
         <aside className="hidden md:block w-72 h-screen sticky top-0 border-r border-[#111111]">
-          <SidebarMenu />
+          <SidebarMenu onNavigate={handleScrollToSection} />
         </aside>
 
-        {/* Conteúdo principal unificado no mesmo ecossistema React */}
-        <main className="flex-1 h-screen overflow-y-auto">
-          <div id="hero">
+        {/* 3. CORREÇÃO: Atribuindo a referência (ref={mainRef}) à tag <main> */}
+        <main ref={mainRef} className="flex-1 h-screen overflow-y-auto">
+          <div id="home">
             <Hero />
           </div>
           <div id="about">
@@ -55,7 +76,7 @@ export default function AppWrapper() {
             <Contact />
           </div>
           <div id="footer">
-            <Footer />
+            <Footer onNavigate={handleScrollToSection} />
           </div>
         </main>
       </div>

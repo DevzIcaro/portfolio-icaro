@@ -198,7 +198,7 @@ export const translations = {
       rights: "Todos os direitos reservados.",
       developedBy: "Desenvolvido por",
       links: [
-        { name: "Início", href: "#hero" },
+        { name: "Início", href: "#home" },
         { name: "Sobre", href: "#about" },
         { name: "Experiência", href: "#experience" },
         { name: "Projetos", href: "#projects" },
@@ -403,7 +403,7 @@ export const translations = {
       rights: "All rights reserved.",
       developedBy: "Developed by",
       links: [
-        { name: "Home", href: "#hero" },
+        { name: "Home", href: "#home" },
         { name: "About", href: "#about" },
         { name: "Experience", href: "#experience" },
         { name: "Projects", href: "#projects" },

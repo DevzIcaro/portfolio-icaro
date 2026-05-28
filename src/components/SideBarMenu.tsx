@@ -6,6 +6,10 @@ import { Home, User, Briefcase, Code2, Cpu, MessageSquare, Mail, Languages } fro
 import { translations } from "../i18n/translations";
 import { useLanguage } from "../context/LanguageContext";
 
+interface NavigationProps {
+  onNavigate: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void;
+}
+
 const navItems = [
   { icon: Home, id: "home" },
   { icon: User, id: "about" },
@@ -13,13 +17,11 @@ const navItems = [
   { icon: Code2, id: "projects" },
   { icon: Cpu, id: "skills" },
   { icon: MessageSquare, id: "services" },
-  { icon: Mail, id: "contact" },
+  { icon: Mail, id: "contacts" }, // Ajustado para "contacts" para bater com o id do AppWrapper
 ];
 
-
-export default function SidebarMenu() {
-  const {lang, toggleLang} = useLanguage();
-
+export default function SidebarMenu({ onNavigate }: NavigationProps) {
+  const { lang, toggleLang } = useLanguage();
   const t = translations[lang].sidebar;
 
   console.log("Idioma atual:", lang);
@@ -55,12 +57,13 @@ export default function SidebarMenu() {
           <a
             key={item.id}
             href={`#${item.id}`}
+            onClick={(e) => onNavigate(e, `#${item.id}`)} // Passando a string correta com o hash '#'
             className="group flex items-center gap-4 px-4 py-3 text-[#F5F5F5]/60 hover:text-[#C2FFF5] transition-all duration-300 rounded-xl hover:bg-[#111111]"
           >
-            <item.icon size={20} className="group-hover:stroke-[#8A248C]" />
+            <item.icon size={20} className="group-hover:stroke-[#8A248C] transition-colors" />
             <span className="font-medium tracking-wide text-sm">{t.nav[index]}</span>
             <motion.div 
-              className="ml-auto w-1.5 h-1.5 rounded-full bg-[#8A248C] opacity-0 group-hover:opacity-100" 
+              className="ml-auto w-1.5 h-1.5 rounded-full bg-[#8A248C] opacity-0 group-hover:opacity-100 transition-opacity" 
             />
           </a>
         ))}
@@ -76,4 +79,3 @@ export default function SidebarMenu() {
     </motion.aside>
   );
 }
-

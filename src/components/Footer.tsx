@@ -8,22 +8,14 @@ import { VscGithub } from "react-icons/vsc";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/translations";
 
-export default function Footer() {
+interface NavigationProps {
+  onNavigate: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void;
+}
+
+export default function Footer({ onNavigate }: NavigationProps) {
   const { lang } = useLanguage();
   const t = translations[lang].footer;
   const currentYear = new Date().getFullYear();
-
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const targetId = href.replace("#", "");
-    const elem = document.getElementById(targetId);
-    if (elem) {
-      window.scrollTo({
-        top: elem.offsetTop - 80,
-        behavior: "smooth",
-      });
-    }
-  };
 
   return (
     <motion.footer 
@@ -69,7 +61,7 @@ export default function Footer() {
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={(e) => scrollToSection(e, link.href)}
+                  onClick={(e) => onNavigate(e, link.href)}
                   className="text-white/60 hover:text-[#248C7B] text-sm transition-colors duration-300 flex items-center gap-2 group w-fit"
                 >
                   <span className="h-px w-0 bg-[#248C7B] transition-all duration-300 group-hover:w-3" />
@@ -152,8 +144,8 @@ export default function Footer() {
           <div className="flex items-center gap-1.5 uppercase text-[10px]">
             <span>{t.developedBy}</span>
             <a
-              href="#hero"
-              onClick={(e) => scrollToSection(e, "#hero")}
+              href="#home"
+              onClick={(e) => onNavigate(e, "#home")}
               className="text-white/60 hover:text-[#248C7B] transition-colors duration-200 flex items-center gap-1 font-bold tracking-wider"
             >
               Ícaro Carneiro <ExternalLink size={10} className="text-[#248C7B]" />

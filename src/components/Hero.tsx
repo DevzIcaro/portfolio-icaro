@@ -7,6 +7,7 @@ import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/translations"
 
 
+
 export default function Hero() {
   const { lang } = useLanguage();
   const t = translations[lang].hero;
