@@ -6,8 +6,6 @@ import { Eye, ExternalLink } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/translations";
 
-
-
 export default function Projects() {
   const { lang } = useLanguage();
   const t = translations[lang].projects;
@@ -52,8 +50,17 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="min-h-screen py-24 px-8 lg:px-20 bg-[#0B0B0B]">
-      <div className="max-w-6xl mx-auto">
+    // Adicionado relative para os absolutos de fundo e o overflow-hidden para travar o blur
+    <section id="projects" className="relative min-h-screen py-24 px-8 lg:px-20 bg-[#0B0B0B] overflow-hidden">
+      
+      {/* 1. GRADIENTE DO TOPO PARA BAIXO (Roxo sumindo no fundo escuro do app - Match com Skills) */}
+      <div className="absolute bottom-0 left-0 right-0 h-[450px] bg-gradient-to-t from-[#8A248C]/25 via-[#8A248C]/02 to-transparent pointer-events-none z-0" />
+      
+      {/* 2. GLOW ADICIONAL DE BACKDROP (Aura desfocada para dar profundidade premium no canto superior direito) */}
+      <div className="absolute bottom-[-100px] right-[-50px] w-[500px] h-[500px] bg-[#8A248C]/5 rounded-full blur-[120px] pointer-events-none z-0" />
+
+      {/* Container principal com z-10 garante que o conteúdo fique visível acima dos efeitos visuais */}
+      <div className="max-w-6xl mx-auto relative z-10">
         
         {/* TÍTULO E SUBTÍTULO */}
         <div className="mb-12">

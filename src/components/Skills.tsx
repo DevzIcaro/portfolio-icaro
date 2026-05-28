@@ -66,7 +66,7 @@ export default function Skills() {
     <section id="skills" className="relative min-h-screen py-24 px-8 lg:px-20 bg-[#0B0B0B] overflow-hidden">
       
       {/* 1. GRADIENTE DO TOPO PARA BAIXO (Roxo sumindo no fundo escuro do app) */}
-      <div className="absolute top-0 left-0 right-0 h-[450px] bg-gradient-to-b from-[#8A248C]/10 via-[#8A248C]/02 to-transparent pointer-events-none z-0" />
+      <div className="absolute top-0 left-0 right-0 h-[450px] bg-gradient-to-b from-[#8A248C]/25 via-[#8A248C]/02 to-transparent pointer-events-none z-0" />
       
       {/* 2. GLOW ADICIONAL DE BACKDROP (Aura desfocada para dar profundidade premium no canto superior direito) */}
       <div className="absolute top-[-100px] right-[-50px] w-[500px] h-[500px] bg-[#8A248C]/5 rounded-full blur-[120px] pointer-events-none z-0" />
