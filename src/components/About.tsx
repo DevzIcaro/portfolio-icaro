@@ -35,7 +35,7 @@ export default function About() {
           <motion.path
             d="M-10,50 Q25,100 50,50 T110,50"
             fill="none"
-            stroke="#248C7B"
+            stroke="#24b59d"
             strokeWidth="0.1"
             initial={{ pathLength: 0 }}
             whileInView={{ pathLength: 1 }}

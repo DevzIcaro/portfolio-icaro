@@ -40,8 +40,17 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="min-h-screen py-24 px-8 lg:px-20 bg-[#0B0B0B] flex items-center">
-      <div className="max-w-6xl mx-auto w-full">
+    // relative e overflow-hidden para conter os efeitos de blur de fundo
+    <section id="contact" className="relative min-h-screen py-24 px-8 lg:px-20 bg-[#0B0B0B] flex items-center overflow-hidden">
+      
+      {/* 1. GRADIENTE DE BAIXO PARA O TOPO (Igual ao do Services) */}
+      <div className="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-[#248C7B]/15 via-[#248C7B]/04 to-transparent pointer-events-none z-0" />
+      
+      {/* 2. GLOW ADICIONAL DE BACKDROP (Aura centralizada inferior igual ao do Services) */}
+      <div className="absolute top-[-150px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#248C7B]/10 rounded-full blur-[130px] pointer-events-none z-0" />
+
+      {/* Container principal com z-10 garante que o conteúdo fique visível acima dos efeitos visuais */}
+      <div className="max-w-6xl mx-auto w-full relative z-10">
         
         <motion.div 
           className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch"
@@ -50,7 +59,7 @@ export default function Contact() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {/* COLUNA ESQUERDA: CARD VISUAL & METADADOS (Fiel à estrutura de image_cc587b.jpg) */}
+          {/* COLUNA ESQUERDA: CARD VISUAL & METADADOS */}
           <div className="lg:col-span-5 bg-[#0F0F0F] border border-[#161616] rounded-3xl p-8 lg:p-10 flex flex-col justify-between relative overflow-hidden group">
             {/* Efeito sutil de gradiente ao fundo do card */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#248C7B]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -71,7 +80,7 @@ export default function Contact() {
             </div>
 
             <div className="relative z-10 mt-auto space-y-8">
-              {/* BLOCO DE MÉTRICAS (Alinhamento numérico da imagem) */}
+              {/* BLOCO DE MÉTRICAS */}
               <div className="grid grid-cols-3 gap-4 border-t border-[#161616] pt-8">
                 {t.stats.map((stat, i) => (
                   <div key={i} className="flex flex-col">
@@ -81,7 +90,7 @@ export default function Contact() {
                 ))}
               </div>
 
-              {/* FILA DE REDES SOCIAIS (Cards minimalistas idênticos à base da imagem) */}
+              {/* FILA DE REDES SOCIAIS */}
               <div className="flex items-center gap-3">
                 {[
                   { icon: <VscGithub size={16} />, href: "https://github.com" },

@@ -29,15 +29,33 @@ export default function Experience() {
   };
 
   return (
-    <section id="experience" className="min-h-screen py-24 px-8 lg:px-20 bg-[#0B0B0B]">
+    <section id="experience" className="relative min-h-screen py-24 px-8 lg:px-20 bg-[#0B0B0B] overflow-hidden">
+      
+      {/* Grafismo decorativo fluido em SVG - Movimento Direita -> Esquerda em Roxo */}
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <motion.path
+            // Curva matemática invertida iniciando em X=110 (direita) e terminando em X=-10 (esquerda)
+            d="M110,30 Q75,0 50,50 T-10,70"
+            fill="none"
+            stroke="#b343b5" // Injetada a cor roxa do seu projeto
+            strokeWidth="0.1"
+            initial={{ pathLength: 0 }}
+            whileInView={{ pathLength: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 2.2, ease: "easeInOut" }}
+          />
+        </svg>
+      </div>
+
       <motion.div 
-        className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16"
+        className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-10"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
       >
-        
+      
         {/* COLUNA ESQUERDA: EXPERIÊNCIA PROFISSIONAL */}
         <div className="flex flex-col">
           <motion.div variants={itemVariants} className="flex items-center gap-4 mb-4">
@@ -53,7 +71,7 @@ export default function Experience() {
             {t.profSub}
           </motion.p>
 
-          {/* Container Linha do Tempo (Fidelidade à image_ca6fe0.png) */}
+          {/* Container Linha do Tempo */}
           <div className="relative border-l border-[#111111] pl-8 ml-6 space-y-12">
             {t.jobs.map((job, idx) => (
               <motion.div key={idx} variants={itemVariants} className="relative group">
@@ -77,7 +95,7 @@ export default function Experience() {
                   {job.desc}
                 </p>
 
-                {/* Tags Tecnológicas (Astro, Next, Context API, etc.) */}
+                {/* Tags Tecnológicas */}
                 <div className="flex flex-wrap gap-2">
                   {job.tags.map((tag, tagIdx) => (
                     <span 
@@ -109,7 +127,7 @@ export default function Experience() {
               {t.eduSub}
             </motion.p>
 
-            {/* Grid de Blocos Acadêmicos (Espelhando os cards da direita de image_ca6fe0.png) */}
+            {/* Grid de Blocos Acadêmicos */}
             <div className="space-y-6">
               {t.education.map((edu, idx) => (
                 <motion.div 
