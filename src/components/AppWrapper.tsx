@@ -4,10 +4,14 @@ import React, { useEffect, useState } from "react";
 import { LanguageProvider } from "../context/LanguageContext";
 import SidebarMenu from "./SideBarMenu";
 import Hero from "./Hero";
+import About from "./About";
+import Experience from "./Experience";
+import Projects from "./Projects";
+import Skills from "./Skills";
+import Services from "./Services";
+import Contact from "./Contacts";
+import Footer from "./Footer";
 
-// 1. REMOVEMOS a interface AppWrapperProps antiga daqui
-
-// 2. O componente agora NÃO recebe parâmetros (Props), ficando limpo
 export default function AppWrapper() {
   const [mounted, setMounted] = useState(false);
 
@@ -32,9 +36,27 @@ export default function AppWrapper() {
           <div id="hero">
             <Hero />
           </div>
-          {/* Seus futuros componentes de página entrarão aqui de forma nativa e segura: */}
-          {/* <About /> */}
-          {/* <Projects /> */}
+          <div id="about">
+            <About />
+          </div>
+          <div id="experience">
+            <Experience />
+          </div>
+          <div id="projects">
+            <Projects />
+          </div>
+          <div id="skills">
+            <Skills />
+          </div>
+          <div id="services">
+            <Services />
+          </div>
+          <div id="contacts">
+            <Contact />
+          </div>
+          <div id="footer">
+            <Footer />
+          </div>
         </main>
       </div>
     </LanguageProvider>
