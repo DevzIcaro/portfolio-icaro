@@ -1,6 +1,5 @@
 "use client";
 
-// 1. IMPORTANTE: Adicionado o 'useRef' nos imports do React
 import React, { useEffect, useState, useRef } from "react";
 import { LanguageProvider } from "../context/LanguageContext";
 import SidebarMenu from "./SideBarMenu";
@@ -15,8 +14,6 @@ import Footer from "./Footer";
 
 export default function AppWrapper() {
   const [mounted, setMounted] = useState(false);
-
-  // 2. CORREÇÃO: Criando a referência que o TypeScript não encontrava
   const mainRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -31,7 +28,10 @@ export default function AppWrapper() {
     const mainContainer = mainRef.current;
 
     if (targetElement && mainContainer) {
-      const targetPosition = targetElement.offsetTop;
+      // Como o contêiner <main> tem overflow-y-auto e h-screen, calculamos a posição 
+      // baseada no scroll atual mais o topo relativo do elemento, descontando a barra mobile se necessário
+      const offset = window.innerWidth >= 768 ? 0 : 80;
+      const targetPosition = targetElement.offsetTop - offset;
 
       mainContainer.scrollTo({
         top: targetPosition,
@@ -46,14 +46,22 @@ export default function AppWrapper() {
 
   return (
     <LanguageProvider>
-      <div className="flex min-h-screen bg-[#0B0B0B]">
-        {/* Sidebar nativa */}
-        <aside className="hidden md:block w-72 h-screen sticky top-0 border-r border-[#111111]">
-          <SidebarMenu onNavigate={handleScrollToSection} />
-        </aside>
+      {/* Container principal flexível que se adapta de coluna (mobile) para linha (desktop) */}
+      <div className="flex flex-col md:flex-row min-h-screen bg-[#0B0B0B] w-full overflow-x-hidden relative">
+        
+        {/* REMOVIDO O <aside> EXTERNO SUPERFLUO: 
+          Agora o componente gerencia internamente sua casca Desktop e Mobile sem ser destruído pelo pai.
+        */}
+        <SidebarMenu onNavigate={handleScrollToSection} />
 
-        {/* 3. CORREÇÃO: Atribuindo a referência (ref={mainRef}) à tag <main> */}
-        <main ref={mainRef} className="flex-1 h-screen overflow-y-auto">
+        {/* AJUSTE DE RESPONSIVIDADE NO <main>:
+          - No mobile: h-auto (deixa o documento ditar a altura) e pt-20 (espaço para a Top Bar fixa).
+          - No desktop (md): h-screen e overflow-y-auto para manter o comportamento de scroll independente atual.
+        */}
+        <main 
+          ref={mainRef} 
+          className="flex-1 w-full min-h-screen pt-20 md:pt-0 h-auto md:h-screen md:overflow-y-auto transition-all duration-300"
+        >
           <div id="home">
             <Hero />
           </div>
