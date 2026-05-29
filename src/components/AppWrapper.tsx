@@ -48,18 +48,11 @@ export default function AppWrapper() {
     <LanguageProvider>
       {/* Container principal flexível que se adapta de coluna (mobile) para linha (desktop) */}
       <div className="flex flex-col md:flex-row min-h-screen bg-[#0B0B0B] w-full overflow-x-hidden relative">
-        
-        {/* REMOVIDO O <aside> EXTERNO SUPERFLUO: 
-          Agora o componente gerencia internamente sua casca Desktop e Mobile sem ser destruído pelo pai.
-        */}
+
         <SidebarMenu onNavigate={handleScrollToSection} />
 
-        {/* AJUSTE DE RESPONSIVIDADE NO <main>:
-          - No mobile: h-auto (deixa o documento ditar a altura) e pt-20 (espaço para a Top Bar fixa).
-          - No desktop (md): h-screen e overflow-y-auto para manter o comportamento de scroll independente atual.
-        */}
-        <main 
-          ref={mainRef} 
+        <main
+          ref={mainRef}
           className="flex-1 w-full min-h-screen pt-20 md:pt-0 h-auto md:h-screen md:overflow-y-auto transition-all duration-300"
         >
           <div id="home">
