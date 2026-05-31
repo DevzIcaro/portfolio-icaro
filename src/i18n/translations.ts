@@ -1,3 +1,5 @@
+import imagemProj1 from "../assets/hero-rath.png";
+import imagemProj2 from "../assets/hero-adv-mock.png";
 
 
 export const translations = {
@@ -99,7 +101,7 @@ export const translations = {
           category: ["frontend", "marketing"],
           categoryLabel: "Aplicação Front-end Premium",
           year: "2026",
-          image: "../src/assets/hero-rath.png",
+          image: {imagemProj1},
           desc: "Landing Page Premium desenvolvida para um profissional especialista em Nutrição, Educação Física e Fisioterapia. O ecossistema foi estruturado com foco em converter clientes de alta renda através de uma identidade visual sofisticada e coerente com a área da saúde. Oferece uma experiência de navegação confortável, destacando o atendimento personalizado para academias e reabilitação física, além de integrar a Google Maps API para facilitar a localização de atuação do profissional.",
           techs: ["Next.js", "Astro", "Shadcn UI", "TailwindCSS", "TypeScript", "Framer-motion", "Google Maps API", "lucide-react", "react-icons"],
           github: "https://github.com/devzicaro/projeto-arthur",
@@ -111,7 +113,7 @@ export const translations = {
           category: ["frontend", "marketing"],
           categoryLabel: "Aplicação Front-end Premium",
           year: "2026",
-          image: "../src/assets/hero-adv-mock.png",
+          image: {imagemProj2},
           desc: "Plataforma institucional premium desenvolvida para um escritório de advocacia fictício utilizando dados mockados estruturados. O ecossistema foi projetado para transmitir autoridade e segurança jurídica através de uma identidade visual sóbria, refinada e altamente coerente com o segmento corporativo. Focado na experiência confortável do usuário, o projeto apresenta carregamento otimizado de seções e componentes modulares para exibição de áreas de atuação e corpo jurídico.",
           techs: ["Next.js", "Astro", "Shadcn UI", "TailwindCSS", "TypeScript", "Framer-motion", "lucide-react", "react-icons"],
           github: "https://github.com/devzicaro/projeto-adv-mock",
