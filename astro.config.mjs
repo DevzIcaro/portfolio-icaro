@@ -2,13 +2,15 @@
 import { defineConfig } from 'astro/config';
 
 import react from '@astrojs/react';
-import tailwindcss from '@tailwindcss/vite';
+import tailwindv4 from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
+  site: ' https://DevzIcaro.github.io/',
+  base: 'portfolio-icaro/',
   integrations: [react()],
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindv4()]
   }
 });
