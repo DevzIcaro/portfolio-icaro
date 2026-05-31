@@ -12,7 +12,7 @@ interface ProjectItem {
   category: string[];
   categoryLabel: string;
   year: string;
-  image: string;
+  image: string | {src: string};
   desc: string;
   techs: string[];
   github: string;
@@ -125,7 +125,7 @@ export default function Projects() {
                   <div className="relative aspect-[16/10] bg-[#111111] border border-[#1a1a1a] rounded-2xl overflow-hidden mb-6 group-hover:border-[#248C7B]/30 transition-all duration-300">
                     {project.image ? (
                       <img 
-                        src={project.image} 
+                        src={typeof project.image === 'object' && 'src' in project.image ? project.image.src : project.image} 
                         alt={project.title}
                         className="absolute inset-0 w-full h-full object-cover object-top opacity-80 group-hover:scale-105 transition-transform duration-500 ease-out"
                       />
