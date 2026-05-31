@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Eye, ExternalLink, Wrench } from "lucide-react"; // Importado Wrench para o ícone de manutenção
+import { Eye, ExternalLink, Wrench } from "lucide-react"; 
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/translations";
 

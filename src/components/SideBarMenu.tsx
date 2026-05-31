@@ -5,9 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Home, User, Briefcase, Code2, Cpu, MessageSquare, Mail, Languages, Menu, X } from "lucide-react";
 import { translations } from "../i18n/translations";
 import { useLanguage } from "../context/LanguageContext";
+import picSidebar from "../assets/pic.jpg";
 
 interface NavigationProps {
-  onNavigate?: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void;
+  onNavigate?: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void
+
 }
 
 const navItems = [
@@ -40,7 +42,7 @@ export default function SidebarMenu({ onNavigate }: NavigationProps) {
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    
+
     if (onNavigate) {
       onNavigate(e, `#${id}`);
     }
@@ -48,13 +50,13 @@ export default function SidebarMenu({ onNavigate }: NavigationProps) {
     const elem = document.getElementById(id);
     if (elem) {
       const offset = window.innerWidth >= 768 ? 0 : 96; // Ajustado para a altura da nova barra + respiro
-      
+
       window.scrollTo({
         top: elem.offsetTop - offset,
         behavior: "smooth",
       });
     }
-    
+
     setIsOpen(false);
   };
 
@@ -69,8 +71,8 @@ export default function SidebarMenu({ onNavigate }: NavigationProps) {
         >
           <item.icon size={20} className="group-hover:stroke-[#8A248C] transition-colors" />
           <span className="font-medium tracking-wide text-sm">{t.nav[index]}</span>
-          <motion.div 
-            className="ml-auto w-1.5 h-1.5 rounded-full bg-[#8A248C] opacity-0 group-hover:opacity-100 transition-opacity" 
+          <motion.div
+            className="ml-auto w-1.5 h-1.5 rounded-full bg-[#8A248C] opacity-0 group-hover:opacity-100 transition-opacity"
           />
         </a>
       ))}
@@ -83,7 +85,7 @@ export default function SidebarMenu({ onNavigate }: NavigationProps) {
       {/* 1. TOP BAR MOBILE FIXA                     */}
       {/* ========================================== */}
       <div className="fixed top-0 left-0 right-0 h-20 bg-[#0B0B0B]/90 backdrop-blur-md border-b border-[#111111]/80 px-6 flex items-center justify-between z-[100] md:hidden w-full">
-        <button 
+        <button
           onClick={toggleLang}
           className="p-2.5 rounded-lg bg-[#111111] border border-[#161616] cursor-pointer text-[#F5F5F5]/50 hover:text-[#C2FFF5] transition-colors z-[110]"
           title="Toggle Language"
@@ -105,7 +107,7 @@ export default function SidebarMenu({ onNavigate }: NavigationProps) {
       {/* ========================================== */}
       {/* 2. SIDEBAR DESKTOP                         */}
       {/* ========================================== */}
-      <motion.aside 
+      <motion.aside
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         className="hidden md:flex w-72 flex-col border-r border-[#111111] bg-[#0B0B0B] p-8 h-screen sticky top-0 flex-shrink-0 z-40"
@@ -113,9 +115,15 @@ export default function SidebarMenu({ onNavigate }: NavigationProps) {
         <div className="mb-12">
           <div className="flex justify-between items-start mb-6">
             <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#8A248C] to-[#248C7B] p-[2px]">
-              <div className="w-full h-full rounded-2xl bg-[#0B0B0B]" />
+              <div className="w-full h-full rounded-2xl overflow-hidden bg-[#0B0B0B]">
+                <img
+                  src={picSidebar.src}
+                  alt="Ícaro Carneiro"
+                  className="w-full h-full object-cover object-center"
+                />
+              </div>
             </div>
-            <button 
+            <button
               onClick={toggleLang}
               className="p-2 rounded-lg bg-[#111111] cursor-pointer text-[#F5F5F5]/50 hover:text-[#C2FFF5] transition-colors"
               title="Toggle Language"

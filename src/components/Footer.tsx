@@ -83,7 +83,7 @@ export default function Footer({ onNavigate }: NavigationProps) {
               </div>
               
               <a 
-                href="https://wa.me/5517992641230" 
+                href="https://wa.me/5517992641230?text=Olá%20Ícaro,%20vi%20seu%20trabalho%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20desenvolvimento%20de%20um%20site."
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="flex items-center gap-3 group text-white/60 hover:text-white transition-colors duration-200"
@@ -93,7 +93,7 @@ export default function Footer({ onNavigate }: NavigationProps) {
               </a>
               
               <a 
-                href="https://github.com/devzicaro" 
+                href="https://github.com/DevzIcaro"
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="flex items-center gap-3 group text-white/60 hover:text-white transition-colors duration-200"
@@ -103,7 +103,7 @@ export default function Footer({ onNavigate }: NavigationProps) {
               </a>
 
               <a 
-                href="https://linkedin.com/in/icarodepaula" 
+                href="https://www.linkedin.com/in/icarocarneiro/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="flex items-center gap-3 group text-white/60 hover:text-white transition-colors duration-200"
@@ -113,7 +113,7 @@ export default function Footer({ onNavigate }: NavigationProps) {
               </a>
               
               <a 
-                href="mailto:carneiro.icaro@outlook.com" 
+                href="mailto:contatodevicaro333@gmail.com" 
                 className="flex items-center gap-3 group text-white/60 hover:text-white transition-colors duration-200 break-all"
               >
                 <Mail size={16} className="text-[#248C7B] shrink-0 group-hover:scale-110 transition-transform" />

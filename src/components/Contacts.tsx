@@ -64,17 +64,17 @@ export default function Contact() {
             {/* Efeito sutil de gradiente ao fundo do card */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#248C7B]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-            <div className="relative z-10">
+            <div className="relative z-10 text-center flex flex-col items-center">
               <span className="text-[10px] font-bold tracking-[0.2em] text-[#248C7B] uppercase block mb-6">
                 {t.tag}
               </span>
 
-              <h2 className="text-3xl lg:text-4xl font-bold text-[#F5F5F5] tracking-tight leading-tight mb-6">
+              <h2 className="flex flex-col items-center text-3xl lg:text-4xl font-bold text-[#F5F5F5] tracking-tight leading-tight mb-6">
                 {t.title} <br />
                 <span className="text-[#248C7B]">{t.titleEmphasis}</span>
               </h2>
 
-              <p className="text-sm text-[#F5F5F5]/50 leading-relaxed font-light mb-12 text-balance">
+              <p className="text-smtext-[#F5F5F5]/50 leading-relaxed font-light mb-12 text-balance mx-auto max-w-xl">
                 {t.desc}
               </p>
             </div>
@@ -82,10 +82,10 @@ export default function Contact() {
             {/* FILA DE REDES SOCIAIS */}
             <div className="flex flex-wrap justify-center gap-18 pb-10">
               {[
-                { icon: <VscGithub size={16} />, href: "https://github.com" },
-                { icon: <ImLinkedin2 size={16} />, href: "https://linkedin.com" },
-                { icon: <MessageSquare size={16} />, href: "https://wa.me" },
-                { icon: <Mail size={16} />, href: "mailto:seu@email.com" }
+                { icon: <VscGithub size={16} />, href: "https://github.com/DevzIcaro" },
+                { icon: <ImLinkedin2 size={16} />, href: "https://www.linkedin.com/in/icarocarneiro/" },
+                { icon: <MessageSquare size={16} />, href: "https://wa.me/5517992641230?text=Olá%20Ícaro,%20vi%20seu%20trabalho%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20desenvolvimento%20de%20um%20site." },
+                { icon: <Mail size={16} />, href: "mailto:contatodevicaro333@gmail.com" }
               ].map((social, index) => (
                 <a
                   key={index}
