@@ -105,7 +105,7 @@ export default function Contact() {
             </div>
           </div>
 
-          <div className="lg:col-span-7 flex flex-col justify-center">
+          {/* <div className="lg:col-span-7 flex flex-col justify-center">
             <form onSubmit={handleSubmit} className="space-y-6">
               
               <motion.div variants={itemVariants} className="flex flex-col gap-2">
@@ -169,7 +169,7 @@ export default function Contact() {
               </motion.button>
 
             </form>
-          </div>
+          </div> */}
         </motion.div>
 
       </div>
