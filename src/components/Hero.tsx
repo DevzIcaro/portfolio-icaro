@@ -17,12 +17,10 @@ export default function Hero({ onNavigate }: NavigationProps) {
   const [index, setIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
-  // 1. Reseta o índice de forma limpa e isolada APENAS quando o idioma mudar de verdade
   useEffect(() => {
     setIndex(0);
   }, [lang]);
 
-  // 2. Controla o carrossel de papéis (roles) baseado no idioma atual
   useEffect(() => {
     const rolesCount = t.roles.length;
     if (rolesCount <= 1) return;
@@ -32,7 +30,7 @@ export default function Hero({ onNavigate }: NavigationProps) {
     }, 3000);
 
     return () => clearInterval(timer);
-  }, [lang, t.roles.length]); // Agora seguro, sem setIndex concorrente gerando loop
+  }, [lang, t.roles.length]);
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -43,7 +41,7 @@ export default function Hero({ onNavigate }: NavigationProps) {
 
     const elem = document.getElementById(id);
     if (elem) {
-      const offset = window.innerWidth >= 768 ? 0 : 96; // Ajustado para a altura da nova barra + respiro
+      const offset = window.innerWidth >= 768 ? 0 : 96;
 
       window.scrollTo({
         top: elem.offsetTop - offset,

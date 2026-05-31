@@ -10,7 +10,6 @@ export default function Skills() {
   const { lang } = useLanguage();
   const t = translations[lang].skills;
 
-  // Variantes de animação tipadas para evitar falhas de compilação (ts(2322))
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -29,7 +28,6 @@ export default function Skills() {
     }
   };
 
-  // Mapeamento de metadados para estilizar as categorias
   const skillSections = [
     {
       key: "frontend",
@@ -62,30 +60,23 @@ export default function Skills() {
   ];
 
   return (
-    // Adicionado relative para os absolutos de fundo e o overflow-hidden para travar o blur
-    <section id="skills" className="relative min-h-screen py-24 px-8 lg:px-20 bg-[#0B0B0B] overflow-hidden">
+      <section id="skills" className="relative min-h-screen py-24 px-8 lg:px-20 bg-[#0B0B0B] overflow-hidden">
       
-      {/* 1. GRADIENTE DO TOPO PARA BAIXO (Roxo sumindo no fundo escuro do app) */}
       <div className="absolute top-0 left-0 right-0 h-[450px] bg-gradient-to-b from-[#8A248C]/25 via-[#8A248C]/02 to-transparent pointer-events-none z-0" />
       
-      {/* 2. GLOW ADICIONAL DE BACKDROP (Aura desfocada para dar profundidade premium no canto superior direito) */}
       <div className="absolute top-[-100px] right-[-50px] w-[500px] h-[500px] bg-[#8A248C]/5 rounded-full blur-[120px] pointer-events-none z-0" />
 
-      {/* Container principal com z-10 para ficar por cima do gradiente de fundo */}
       <div className="max-w-6xl mx-auto relative z-10">
         
-        {/* CABEÇALHO DA SEÇÃO */}
         <div className="mb-16">
           <h2 className="text-3xl font-bold text-[#F5F5F5] tracking-tight mb-2">{t.title}</h2>
           <p className="text-sm text-[#F5F5F5]/40 max-w-xl leading-relaxed">{t.sub}</p>
         </div>
 
-        {/* CONTAINER MAIS EXTERNO */}
         <div className="space-y-16">
           {skillSections.map((section) => (
             <div key={section.key} className="flex flex-col gap-6">
               
-              {/* TÍTULO DA CATEGORIA */}
               <div className="flex items-center gap-3 border-b border-[#111111] pb-3">
                 {section.icon}
                 <h3 className="text-sm font-semibold text-[#F5F5F5]/60 uppercase tracking-widest">
@@ -93,7 +84,6 @@ export default function Skills() {
                 </h3>
               </div>
 
-              {/* GRID DE SKILLS */}
               <motion.div 
                 className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
                 variants={containerVariants}
@@ -107,7 +97,6 @@ export default function Skills() {
                     variants={itemVariants}
                     className={`group flex items-center gap-4 p-4 rounded-xl bg-[#0F0F0F] border border-[#161616] transition-all duration-300 ${section.hoverColor}`}
                   >
-                    {/* Elemento Visual Interno do Card */}
                     <div className="flex-shrink-0 p-2 rounded-lg bg-[#070707] group-hover:scale-105 transition-transform duration-300">
                       {section.icon}
                     </div>

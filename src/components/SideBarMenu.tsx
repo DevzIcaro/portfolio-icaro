@@ -81,9 +81,6 @@ export default function SidebarMenu({ onNavigate }: NavigationProps) {
 
   return (
     <>
-      {/* ========================================== */}
-      {/* 1. TOP BAR MOBILE FIXA                     */}
-      {/* ========================================== */}
       <div className="fixed top-0 left-0 right-0 h-20 bg-[#0B0B0B]/90 backdrop-blur-md border-b border-[#111111]/80 px-6 flex items-center justify-between z-[100] md:hidden w-full">
         <button
           onClick={toggleLang}
@@ -104,9 +101,6 @@ export default function SidebarMenu({ onNavigate }: NavigationProps) {
         </button>
       </div>
 
-      {/* ========================================== */}
-      {/* 2. SIDEBAR DESKTOP                         */}
-      {/* ========================================== */}
       <motion.aside
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -145,9 +139,6 @@ export default function SidebarMenu({ onNavigate }: NavigationProps) {
         </div>
       </motion.aside>
 
-      {/* ========================================== */}
-      {/* 3. DRAWER MOBILE                           */}
-      {/* ========================================== */}
       <AnimatePresence>
         {isOpen && (
           <>

@@ -27,10 +27,8 @@ export default function Footer({ onNavigate }: NavigationProps) {
     >
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
         
-        {/* GRID PRINCIPAL DE 12 COLUNAS */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8 mb-20">
 
-          {/* COLUNA DA LOGO E FRASE DE EFEITO (5 Colunas) */}
           <div className="md:col-span-12 lg:col-span-5 flex flex-col gap-6">
             <div className="flex flex-col gap-2">
               <h2 className="text-2xl font-bold tracking-tighter text-[#F5F5F5]">
@@ -44,7 +42,6 @@ export default function Footer({ onNavigate }: NavigationProps) {
               </div>
             </div>
 
-            {/* FRASE DE EFEITO PERSONALIZADA */}
             <p className="text-lg font-semibold text-[#F5F5F5]/50 leading-relaxed max-w-sm mt-2 text-balance">
               "{t.tagline}{" "}
               <span className="text-[#F5F5F5] border-b border-[#248C7B]/40 pb-0.5 font-bold">
@@ -53,7 +50,6 @@ export default function Footer({ onNavigate }: NavigationProps) {
             </p>
           </div>
 
-          {/* COLUNA DE NAVEGAÇÃO DO SEU SITE (2 Colunas) */}
           <div className="md:col-span-4 lg:col-span-2 flex flex-col gap-6">
             <h4 className="text-white/40 font-semibold text-xs uppercase tracking-widest">{t.navTitle}</h4>
             <nav className="flex flex-col gap-3.5">
@@ -71,7 +67,6 @@ export default function Footer({ onNavigate }: NavigationProps) {
             </nav>
           </div>
 
-          {/* COLUNA DE SEUS CONTATOS DIRETOS (3 Colunas) */}
           <div className="md:col-span-5 lg:col-span-3 flex flex-col gap-6">
             <h4 className="text-white/40 font-semibold text-xs uppercase tracking-widest">{t.contactTitle}</h4>
             <div className="flex flex-col gap-4">
@@ -122,7 +117,6 @@ export default function Footer({ onNavigate }: NavigationProps) {
             </div>
           </div>
 
-          {/* COLUNA DE ESPECIALIDADE TÉCNICA (2 Colunas) */}
           <div className="md:col-span-3 lg:col-span-2 flex flex-col gap-6">
             <h4 className="text-white/40 font-semibold text-xs uppercase tracking-widest">{t.specialtyTitle}</h4>
             <div className="flex flex-col gap-4">
@@ -135,7 +129,6 @@ export default function Footer({ onNavigate }: NavigationProps) {
 
         </div>
 
-        {/* CONTAINER INFERIOR DE DIREITOS E AUTORIA */}
         <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs tracking-wide text-white/30">
           <p className="uppercase text-[10px]">
             © {currentYear} Ícaro de Paula Carneiro. {t.rights}

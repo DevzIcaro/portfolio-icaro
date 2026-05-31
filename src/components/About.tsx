@@ -9,7 +9,6 @@ export default function About() {
   const { lang } = useLanguage();
   const t = translations[lang].about;
 
-  // Variantes para animações em cascata (Stagger effect)
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -29,7 +28,6 @@ export default function About() {
 
   return (
     <section id="about" className="relative min-h-screen py-24 px-8 lg:px-20 bg-[#0B0B0B] overflow-hidden">
-      {/* Grafismo decorativo fluido em SVG imitando a linha tênue da imagem de referência */}
       <div className="absolute inset-0 pointer-events-none opacity-20">
         <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
           <motion.path
@@ -51,7 +49,6 @@ export default function About() {
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
       >
-        {/* Bloco Esquerdo: Header & Título Principal */}
         <div className="lg:col-span-7 flex flex-col justify-start">
           <motion.span 
             variants={itemVariants}
@@ -66,7 +63,6 @@ export default function About() {
           >
             {t.title.split(" ").map((word, i) => (
               <span key={i} className="inline-block mr-2">
-                {/* Destaca palavras chaves com gradiente/roxo de acordo com a sua paleta */}
                 {["escaláveis.", "robustas", "robust", "scalable"].includes(word.toLowerCase().replace(/[^a-zA-Záéíóúç]/g, "")) ? (
                   <span className="text-[#8A248C]">{word}</span>
                 ) : (
@@ -77,7 +73,6 @@ export default function About() {
           </motion.h2>
         </div>
 
-        {/* Bloco Direito: Caixa Destaque de Sentimento */}
         <div className="lg:col-span-5 flex items-start lg:pt-12">
           <motion.p 
             variants={itemVariants}
@@ -87,13 +82,11 @@ export default function About() {
           </motion.p>
         </div>
 
-        {/* Linha Divisória */}
+
         <div className="lg:col-span-12 my-4 border-t border-[#111111]" />
 
-        {/* Bloco Inferior: Grid de 3 Colunas Assimétricas de Valores (Igual à imagem) */}
         <div className="lg:col-span-7 lg:col-start-6 grid grid-cols-1 gap-10">
           
-          {/* Item 1: Compromisso */}
           <motion.div variants={itemVariants} className="group">
             <h3 className="text-sm font-medium text-[#F5F5F5]/40 group-hover:text-[#248C7B] transition-colors duration-300 mb-2">
               {t.commitmentTitle}
@@ -103,7 +96,6 @@ export default function About() {
             </p>
           </motion.div>
 
-          {/* Item 2: Pessoas */}
           <motion.div variants={itemVariants} className="group">
             <h3 className="text-sm font-medium text-[#F5F5F5]/40 group-hover:text-[#248C7B] transition-colors duration-300 mb-2">
               {t.peopleTitle}
@@ -113,7 +105,6 @@ export default function About() {
             </p>
           </motion.div>
 
-          {/* Item 3: Impacto */}
           <motion.div variants={itemVariants} className="group">
             <h3 className="text-sm font-medium text-[#F5F5F5]/40 group-hover:text-[#248C7B] transition-colors duration-300 mb-2">
               {t.impactTitle}

@@ -75,13 +75,11 @@ export default function Projects() {
       <div className="absolute bottom-[-100px] right-[-50px] w-[500px] h-[500px] bg-[#8A248C]/5 rounded-full blur-[120px] pointer-events-none z-0" />
 
       <div className="max-w-6xl mx-auto relative z-10">
-        {/* TÍTULO E SUBTÍTULO */}
         <div className="mb-12">
           <h2 className="text-3xl font-bold text-[#F5F5F5] tracking-tight mb-2">{t.title}</h2>
           <p className="text-sm text-[#F5F5F5]/40 max-w-md">{t.sub}</p>
         </div>
 
-        {/* NAVEGAÇÃO DE FILTROS */}
         <div className="flex flex-wrap items-center gap-x-8 gap-y-4 border-b border-[#111111] pb-6 mb-12">
           {categories.map((tab) => {
             const isSelected = activeTab === tab.id;
@@ -106,7 +104,6 @@ export default function Projects() {
           })}
         </div>
 
-        {/* CONTAINER DINÂMICO DE PROJETOS / EMPTY STATE */}
         <AnimatePresence mode="popLayout">
           {filteredProjects.length > 0 ? (
             <motion.div 
@@ -187,7 +184,6 @@ export default function Projects() {
               ))}
             </motion.div>
           ) : (
-            /* ADICIONADO: CARD DE EMPTY STATE PREMIUM */
             <motion.div
               key="empty-state"
               initial={{ opacity: 0, y: 15 }}

@@ -28,8 +28,6 @@ export default function AppWrapper() {
     const mainContainer = mainRef.current;
 
     if (targetElement && mainContainer) {
-      // Como o contêiner <main> tem overflow-y-auto e h-screen, calculamos a posição 
-      // baseada no scroll atual mais o topo relativo do elemento, descontando a barra mobile se necessário
       const offset = window.innerWidth >= 768 ? 0 : 80;
       const targetPosition = targetElement.offsetTop - offset;
 
@@ -46,7 +44,6 @@ export default function AppWrapper() {
 
   return (
     <LanguageProvider>
-      {/* Container principal flexível que se adapta de coluna (mobile) para linha (desktop) */}
       <div className="flex flex-col md:flex-row min-h-screen bg-[#0B0B0B] w-full overflow-x-hidden relative">
 
         <SidebarMenu onNavigate={handleScrollToSection} />

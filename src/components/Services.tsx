@@ -11,7 +11,6 @@ export default function Services() {
   const { lang } = useLanguage();
   const t = translations[lang].services;
 
-  // Variantes de animação para entrada suave e coordenada do Grid
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -29,7 +28,6 @@ export default function Services() {
     }
   };
 
-  // Mapeia os ícones dinamicamente para cada item baseado no ID definido no dicionário
   const getIcon = (id: string) => {
     switch (id) {
       case "lp":
@@ -46,19 +44,14 @@ export default function Services() {
   };
 
   return (
-    // relative e overflow-hidden essenciais para conter os efeitos de blur de fundo
     <section id="services" className="relative min-h-screen py-24 px-8 lg:px-20 bg-[#0B0B0B] flex items-center overflow-hidden">
 
-      {/* 1. GRADIENTE DE BAIXO PARA O TOPO (Verde subindo e sumindo no fundo escuro) */}
       <div className="absolute bottom-0 left-0 right-0 h-[500px] bg-gradient-to-t from-[#248C7B]/15 via-[#248C7B]/04 to-transparent pointer-events-none z-0" />
 
-      {/* 2. GLOW ADICIONAL DE BACKDROP (Aura centralizada inferior para dar profundidade premium atrás dos cards) */}
       <div className="absolute bottom-[-150px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#248C7B]/10 rounded-full blur-[130px] pointer-events-none z-0" />
 
-      {/* Container principal com z-10 garante que o conteúdo fique visível acima dos efeitos visuais */}
       <div className="max-w-5xl mx-auto w-full relative z-10">
 
-        {/* CABEÇALHO CENTRALIZADO */}
         <div className="text-center mb-20 flex flex-col items-center">
           <h2 className="text-3xl font-bold text-[#F5F5F5] tracking-tight relative pb-4 inline-block">
             {t.title}
@@ -69,7 +62,6 @@ export default function Services() {
           </p>
         </div>
 
-        {/* GRID DE SERVIÇOS DO PORTFÓLIO */}
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-16"
           variants={containerVariants}
@@ -97,7 +89,6 @@ export default function Services() {
                 {service.desc}
               </p>
 
-              {/* LINK DE AÇÃO DESTAQUE */}
               <a
                 href="#contact"
                 className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#248C7B] hover:text-[#248C7B]/80 transition-colors duration-200 group/link"

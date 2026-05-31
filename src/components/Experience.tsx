@@ -10,7 +10,6 @@ export default function Experience() {
   const { lang } = useLanguage();
   const t = translations[lang].experience;
 
-  // Animações unificadas e tipadas para evitar erros de compilação
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -31,14 +30,12 @@ export default function Experience() {
   return (
     <section id="experience" className="relative min-h-screen py-24 px-8 lg:px-20 bg-[#0B0B0B] overflow-hidden">
       
-      {/* Grafismo decorativo fluido em SVG - Movimento Direita -> Esquerda em Roxo */}
       <div className="absolute inset-0 pointer-events-none opacity-20">
         <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
           <motion.path
-            // Curva matemática invertida iniciando em X=110 (direita) e terminando em X=-10 (esquerda)
             d="M110,30 Q75,0 50,50 T-10,70"
             fill="none"
-            stroke="#b343b5" // Injetada a cor roxa do seu projeto
+            stroke="#b343b5"
             strokeWidth="0.1"
             initial={{ pathLength: 0 }}
             whileInView={{ pathLength: 1 }}
@@ -56,7 +53,6 @@ export default function Experience() {
         viewport={{ once: true, margin: "-100px" }}
       >
       
-        {/* COLUNA ESQUERDA: EXPERIÊNCIA PROFISSIONAL */}
         <div className="flex flex-col">
           <motion.div variants={itemVariants} className="flex items-center gap-4 mb-4">
             <div className="p-3 rounded-xl bg-[#248C7B]/10 text-[#248C7B]">
@@ -71,12 +67,10 @@ export default function Experience() {
             {t.profSub}
           </motion.p>
 
-          {/* Container Linha do Tempo */}
           <div className="relative border-l border-[#111111] pl-8 ml-6 space-y-12">
             {t.jobs.map((job, idx) => (
               <motion.div key={idx} variants={itemVariants} className="relative group">
                 
-                {/* Indicador da Linha do Tempo */}
                 <span className="absolute -left-[37px] top-1 w-4 h-4 rounded-full border-2 border-[#248C7B] bg-[#0B0B0B] group-hover:bg-[#248C7B] transition-colors duration-300" />
                 
                 <span className="text-xs font-semibold text-[#248C7B] tracking-wider block mb-2">
@@ -95,7 +89,6 @@ export default function Experience() {
                   {job.desc}
                 </p>
 
-                {/* Tags Tecnológicas */}
                 <div className="flex flex-wrap gap-2">
                   {job.tags.map((tag, tagIdx) => (
                     <span 
@@ -111,7 +104,6 @@ export default function Experience() {
           </div>
         </div>
 
-        {/* COLUNA DIREITA: EDUCAÇÃO & CERTIFICAÇÕES */}
         <div className="flex flex-col justify-between">
           <div>
             <motion.div variants={itemVariants} className="flex items-center gap-4 mb-4">
@@ -127,7 +119,6 @@ export default function Experience() {
               {t.eduSub}
             </motion.p>
 
-            {/* Grid de Blocos Acadêmicos */}
             <div className="space-y-6">
               {t.education.map((edu, idx) => (
                 <motion.div 
@@ -164,7 +155,6 @@ export default function Experience() {
             </div>
           </div>
 
-          {/* SEÇÃO INFERIOR: CERTIFICAÇÕES PROFISSIONAIS */}
           <div className="mt-16">
             <motion.h4 variants={itemVariants} className="text-xs font-semibold text-[#F5F5F5]/30 uppercase tracking-[0.2em] mb-6">
               {t.certTitle}
