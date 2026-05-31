@@ -503,39 +503,35 @@ export const translations = {
         frontend: "Front-end",
         marketing: "Marketing Digital"
       },
+      emptyState: {
+        title: "Novos Ecossistemas em Construção",
+        desc: "Estou realizando refatorações arquiteturais, otimizando performance e desenvolvendo novos projetos complexos para esta categoria. Em breve, soluções completas estarão expostas aqui.",
+        badge: "Desenvolvimento Ativo"
+      },
       items: [
         {
           id: 1,
-          title: "Plantação Inteligente Dashboard",
-          category: "fullstack",
-          categoryLabel: "Full Stack Application",
+          title: "RATH Performance",
+          category: ["frontend", "marketing"],
+          categoryLabel: "Aplicação Front-end Premium",
           year: "2026",
-          desc: "Painel administrativo de monitoramento agrícola integrado a microsserviços. Consumo de dados em tempo real utilizando GraphQL e renderização otimizada com MetricCards.",
-          techs: ["Next.js", "GraphQL", "NestJS", "Recharts"],
-          github: "https://github.com/devzicaro",
-          demo: "#"
+          image: "../src/assets/hero-rath.png",
+          desc: "Landing Page Premium desenvolvida para um profissional especialista em Nutrição, Educação Física e Fisioterapia. O ecossistema foi estruturado com foco em converter clientes de alta renda através de uma identidade visual sofisticada e coerente com a área da saúde. Oferece uma experiência de navegação confortável, destacando o atendimento personalizado para academias e reabilitação física, além de integrar a Google Maps API para facilitar a localização de atuação do profissional.",
+          techs: ["Next.js", "Astro", "Shadcn UI", "TailwindCSS", "TypeScript", "Framer-motion", "Google Maps API", "lucide-react", "react-icons"],
+          github: "https://github.com/devzicaro/projeto-arthur",
+          demo: "https://devzicaro.github.io/projeto-arthur/"
         },
         {
           id: 2,
-          title: "Auth Email Secure Ecosystem",
-          category: "frontend",
-          categoryLabel: "Web Application",
+          title: "Advocacia Mock Digital",
+          category: ["frontend", "marketing"],
+          categoryLabel: "Aplicação Front-end Premium",
           year: "2026",
-          desc: "Sistema desacoplado focado em autenticação e fluxos seguros via e-mail. Arquitetado em estrutura Monorepo utilizando gerenciamento eficiente de pacotes com pnpm.",
-          techs: ["React", "Shadcn UI", "TailwindCSS", "Vercel"],
-          github: "https://github.com/devzicaro",
-          demo: "#"
-        },
-        {
-          id: 3,
-          title: "Sistemas Digitais de Alta Conversão",
-          category: "marketing",
-          categoryLabel: "Marketing Digital",
-          year: "2022",
-          desc: "Desenvolvimento de portais institucionais e plataformas voltadas ao marketing digital de alta conversão, com foco em SEO estrutural e design responsivo.",
-          techs: ["JavaScript", "Bootstrap", "HTML5", "CSS3"],
-          github: "https://github.com/devzicaro",
-          demo: "#"
+          image: "../src/assets/hero-adv-mock.png",
+          desc: "Plataforma institucional premium desenvolvida para um escritório de advocacia fictício utilizando dados mockados estruturados. O ecossistema foi projetado para transmitir autoridade e segurança jurídica através de uma identidade visual sóbria, refinada e altamente coerente com o segmento corporativo. Focado na experiência confortável do usuário, o projeto apresenta carregamento otimizado de seções e componentes modulares para exibição de áreas de atuação e corpo jurídico.",
+          techs: ["Next.js", "Astro", "Shadcn UI", "TailwindCSS", "TypeScript", "Framer-motion", "lucide-react", "react-icons"],
+          github: "https://github.com/devzicaro/projeto-adv-mock",
+          demo: "https://devzicaro.github.io/projeto-adv-mock/"
         }
       ]
     },
@@ -709,40 +705,36 @@ export const translations = {
         frontend: "Front-end",
         marketing: "Digital Marketing"
       },
+      emptyState: {
+        title: "New Ecosystems Under Construction",
+        desc: "I am currently performing architectural refactoring, optimizing performance, and engineering new complex projects for this category. Complete solutions will be showcased here soon.",
+        badge: "Active Development"
+      },
       items: [
         {
           id: 1,
-          title: "Smart Plantation Dashboard",
-          category: "fullstack",
-          categoryLabel: "Full Stack Application",
+          title: "RATH Landing Page",
+          category: ["frontend", "marketing"],
+          categoryLabel: "Premium Front-end Application",
           year: "2026",
-          desc: "Agricultural monitoring dashboard integrated into decoupled microservices. Real-time data parsing using GraphQL metrics and tailored MetricCards views.",
-          techs: ["Next.js", "GraphQL", "NestJS", "Recharts"],
-          github: "https://github.com/devzicaro",
-          demo: "#"
+          image: "../src/assets/hero-rath.png",
+          desc: "Premium Landing Page developed for a health professional specialized in Nutrition, Physical Education, and Physiotherapy. The digital ecosystem was structured to convert high-end clients through a sophisticated visual identity tailored to the healthcare sector. It provides a comfortable browsing experience, highlighting personalized fitness training and physical rehabilitation services, while leveraging Google Maps API integration to seamlessly display the professional's operational location.",
+          techs: ["Next.js", "Astro", "Shadcn UI", "TailwindCSS", "TypeScript", "Framer-motion", "Google Maps API", "lucide-react", "react-icons"],
+          github: "https://devzicaro.github.io/projeto-arthur/",
+          demo: "https://devzicaro.github.io/projeto-arthur/"
         },
         {
           id: 2,
-          title: "Auth Email Secure Ecosystem",
-          category: "frontend",
-          categoryLabel: "Web Application",
+          title: "Advocacia Mock Digital",
+          category: ["frontend", "marketing"],
+          categoryLabel: "Premium Front-end Application",
           year: "2026",
-          desc: "Decoupled system focusing on authentication flows and secure email validation routes. Architected under a Monorepo pipeline using pnpm package managers.",
-          techs: ["React", "Shadcn UI", "TailwindCSS", "Vercel"],
-          github: "https://github.com/devzicaro",
-          demo: "#"
+          image: "../src/assets/hero-adv-mock.png",
+          desc: "Premium corporate web application developed for a fictional law firm using structured mock data. The digital ecosystem was engineered to convey legal authority and trust through a sleek, refined visual identity tailored to the corporate legal sector. Focused on delivering a comfortable user experience, the project features optimized section rendering and highly modular components to display legal practice areas and attorney profiles.",
+          techs: ["Next.js", "Astro", "Shadcn UI", "TailwindCSS", "TypeScript", "Framer-motion", "lucide-react", "react-icons"],
+          github: "https://github.com/devzicaro/projeto-adv-mock",
+          demo: "https://devzicaro.github.io/projeto-adv-mock/"
         },
-        {
-          id: 3,
-          title: "High-Conversion Digital Systems",
-          category: "marketing",
-          categoryLabel: "Digital Marketing",
-          year: "2022",
-          desc: "Production of corporate web applications focusing on digital marketing funnels, technical search engine optimization, and responsive styling grids.",
-          techs: ["JavaScript", "Bootstrap", "HTML5", "CSS3"],
-          github: "https://github.com/devzicaro",
-          demo: "#"
-        }
       ]
     },
     skills: {
@@ -755,7 +747,7 @@ export const translations = {
         soft: "Soft Skills"
       },
       items: {
-        frontend: ["React", "Next.js", "TypeScript", "JavaScript","Astro", "TailwindCSS", "Shadcn UI", "Recharts", "HTML5", "CSS3", "Bootstrap"],
+        frontend: ["React", "Next.js", "TypeScript", "JavaScript", "Astro", "TailwindCSS", "Shadcn UI", "Recharts", "HTML5", "CSS3", "Bootstrap"],
         backend: ["NestJS", "Node.js", "GraphQL", "REST APIs", "Prisma", "TypeORM"],
         foundations: ["Algorithms", "Data Structures", "Unit Testing", "Git / GitHub", "Azure", "CI/CD"],
         soft: ["Emotional Intelligence", "Teamwork", "Adaptability", "Assertive Communication"]

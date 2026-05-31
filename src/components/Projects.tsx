@@ -1,16 +1,28 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Eye, ExternalLink } from "lucide-react";
+import { Eye, ExternalLink, Wrench } from "lucide-react"; // Importado Wrench para o ícone de manutenção
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/translations";
+
+interface ProjectItem {
+  id: number;
+  title: string;
+  category: string[];
+  categoryLabel: string;
+  year: string;
+  image: string;
+  desc: string;
+  techs: string[];
+  github: string;
+  demo: string;
+}
 
 export default function Projects() {
   const { lang } = useLanguage();
   const t = translations[lang].projects;
   
-  // Estado para gerenciar o filtro de categorias ativo
   const [activeTab, setActiveTab] = useState<string>("all");
 
   const categories = [
@@ -20,10 +32,18 @@ export default function Projects() {
     { id: "marketing", label: t.categories.marketing },
   ];
 
-  // Filtra dinamicamente a lista de projetos do currículo
-  const filteredProjects = activeTab === "all" 
-    ? t.items 
-    : t.items.filter(item => item.category === activeTab);
+  const filteredProjects = useMemo(() => {
+    const items = t.items as unknown as ProjectItem[];
+    
+    if (activeTab === "all") return items;
+    
+    return items.filter((item) => {
+      if (Array.isArray(item.category)) {
+        return item.category.includes(activeTab);
+      }
+      return item.category === activeTab;
+    });
+  }, [activeTab, t.items]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -39,7 +59,7 @@ export default function Projects() {
       opacity: 1,
       scale: 1,
       y: 0,
-      transition: { duration: 0.4, ease: "easeOut" }  as const
+      transition: { duration: 0.4, ease: "easeOut" } as const
     },
     exit: {
       opacity: 0,
@@ -50,25 +70,18 @@ export default function Projects() {
   };
 
   return (
-    // Adicionado relative para os absolutos de fundo e o overflow-hidden para travar o blur
     <section id="projects" className="relative min-h-screen py-24 px-8 lg:px-20 bg-[#0B0B0B] overflow-hidden">
-      
-      {/* 1. GRADIENTE DO TOPO PARA BAIXO (Roxo sumindo no fundo escuro do app - Match com Skills) */}
       <div className="absolute bottom-0 left-0 right-0 h-[450px] bg-gradient-to-t from-[#8A248C]/25 via-[#8A248C]/02 to-transparent pointer-events-none z-0" />
-      
-      {/* 2. GLOW ADICIONAL DE BACKDROP (Aura desfocada para dar profundidade premium no canto superior direito) */}
       <div className="absolute bottom-[-100px] right-[-50px] w-[500px] h-[500px] bg-[#8A248C]/5 rounded-full blur-[120px] pointer-events-none z-0" />
 
-      {/* Container principal com z-10 garante que o conteúdo fique visível acima dos efeitos visuais */}
       <div className="max-w-6xl mx-auto relative z-10">
-        
         {/* TÍTULO E SUBTÍTULO */}
         <div className="mb-12">
           <h2 className="text-3xl font-bold text-[#F5F5F5] tracking-tight mb-2">{t.title}</h2>
           <p className="text-sm text-[#F5F5F5]/40 max-w-md">{t.sub}</p>
         </div>
 
-        {/* NAVEGAÇÃO DE FILTROS (Fidelidade ao design superior da image_cb5cc2.jpg) */}
+        {/* NAVEGAÇÃO DE FILTROS */}
         <div className="flex flex-wrap items-center gap-x-8 gap-y-4 border-b border-[#111111] pb-6 mb-12">
           {categories.map((tab) => {
             const isSelected = activeTab === tab.id;
@@ -81,7 +94,6 @@ export default function Projects() {
                 }`}
               >
                 {tab.label}
-                {/* Indicador animado fluido abaixo da tab ativa via layoutId */}
                 {isSelected && (
                   <motion.div
                     layoutId="activeTabBorder"
@@ -94,82 +106,116 @@ export default function Projects() {
           })}
         </div>
 
-        {/* GRID DE PROJETOS COM ANIMATE PRESENCE (Evita quebras nas trocas de estado) */}
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
-              <motion.div
-                layout // Faz o card deslizar elegantemente se o vizinho sumir
-                key={project.id}
-                variants={cardVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="group flex flex-col"
-              >
-                {/* CONTAINER DA IMAGEM E HOVER EFFECTS */}
-                <div className="relative aspect-[16/10] bg-[#111111] border border-[#1a1a1a] rounded-2xl overflow-hidden mb-6 group-hover:border-[#248C7B]/30 transition-all duration-300">
-                  
-                  {/* Mock alternativo escuro/abstrato imitando o layout premium */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#1c1c1c] to-[#090909] flex items-center justify-center p-8 opacity-75 group-hover:scale-105 transition-transform duration-500">
-                    <div className="flex flex-wrap gap-2 justify-center max-w-xs">
-                      {project.techs.map((tech, i) => (
-                        <span key={i} className="text-[10px] text-[#F5F5F5]/30 border border-[#1a1a1a] bg-[#070707]/60 px-2 py-0.5 rounded">
-                          {tech}
-                        </span>
-                      ))}
+        {/* CONTAINER DINÂMICO DE PROJETOS / EMPTY STATE */}
+        <AnimatePresence mode="popLayout">
+          {filteredProjects.length > 0 ? (
+            <motion.div 
+              key="grid-projects"
+              className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              exit="exit"
+            >
+              {filteredProjects.map((project) => (
+                <motion.div
+                  layout 
+                  key={project.id}
+                  variants={cardVariants}
+                  className="group flex flex-col"
+                >
+                  <div className="relative aspect-[16/10] bg-[#111111] border border-[#1a1a1a] rounded-2xl overflow-hidden mb-6 group-hover:border-[#248C7B]/30 transition-all duration-300">
+                    {project.image ? (
+                      <img 
+                        src={project.image} 
+                        alt={project.title}
+                        className="absolute inset-0 w-full h-full object-cover object-top opacity-80 group-hover:scale-105 transition-transform duration-500 ease-out"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#1c1c1c] to-[#090909] opacity-75" />
+                    )}
+
+                    <div className="absolute inset-0 bg-[#0B0B0B]/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-10">
+                      <a 
+                        href={project.demo}
+                        className="p-3 rounded-full bg-[#1a1a1a] border border-[#2d2d2d] text-[#F5F5F5] hover:bg-[#248C7B] hover:border-[#248C7B] transition-all duration-200"
+                        title="Visualizar Projeto"
+                      >
+                        <Eye size={18} />
+                      </a>
+                      <a 
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-3 rounded-full bg-[#1a1a1a] border border-[#2d2d2d] text-[#F5F5F5] hover:bg-[#8A248C] hover:border-[#8A248C] transition-all duration-200"
+                        title="Ver Repositório"
+                      >
+                        <ExternalLink size={18} />
+                      </a>
                     </div>
                   </div>
 
-                  {/* Máscara de Overlap Escura ao dar Hover */}
-                  <div className="absolute inset-0 bg-[#0B0B0B]/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-10">
-                    <a 
-                      href={project.demo}
-                      className="p-3 rounded-full bg-[#1a1a1a] border border-[#2d2d2d] text-[#F5F5F5] hover:bg-[#248C7B] hover:border-[#248C7B] transition-all duration-200"
-                      title="Visualizar Projeto"
-                    >
-                      <Eye size={18} />
-                    </a>
-                    <a 
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-3 rounded-full bg-[#1a1a1a] border border-[#2d2d2d] text-[#F5F5F5] hover:bg-[#8A248C] hover:border-[#8A248C] transition-all duration-200"
-                      title="Ver Repositório"
-                    >
-                      <ExternalLink size={18} />
-                    </a>
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-xs font-semibold text-[#248C7B] tracking-wide uppercase">
+                      {project.categoryLabel}
+                    </span>
+                    <span className="text-xs text-[#F5F5F5]/30 font-medium">
+                      {project.year}
+                    </span>
                   </div>
-                </div>
 
-                {/* METADADOS DO CARD (Idêntico à estrutura inferior da image_cb5cc2.jpg) */}
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-xs font-semibold text-[#248C7B] tracking-wide uppercase">
-                    {project.categoryLabel}
-                  </span>
-                  <span className="text-xs text-[#F5F5F5]/30 font-medium">
-                    {project.year}
-                  </span>
-                </div>
+                  <h3 className="text-xl font-bold text-[#F5F5F5] tracking-tight group-hover:text-[#248C7B] transition-colors duration-200 mb-3">
+                    {project.title}
+                  </h3>
 
-                <h3 className="text-xl font-bold text-[#F5F5F5] tracking-tight group-hover:text-[#248C7B] transition-colors duration-200 mb-3">
-                  {project.title}
-                </h3>
+                  <p className="text-sm text-[#F5F5F5]/50 leading-relaxed font-light text-balance mb-4">
+                    {project.desc}
+                  </p>
 
-                <p className="text-sm text-[#F5F5F5]/50 leading-relaxed font-light text-balance">
-                  {project.desc}
-                </p>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+                  <div className="flex flex-wrap gap-2 mt-auto">
+                    {project.techs.map((tech, i) => (
+                      <span 
+                        key={i} 
+                        className="text-[11px] font-medium text-[#F5F5F5]/50 border border-[#1a1a1a] bg-[#111111]/40 px-2.5 py-1 rounded-md tracking-wide hover:border-[#248C7B]/20 hover:text-[#F5F5F5]/80 transition-colors duration-200"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+            /* ADICIONADO: CARD DE EMPTY STATE PREMIUM */
+            <motion.div
+              key="empty-state"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.4 }}
+              className="w-full min-h-[350px] border border-dashed border-[#1a1a1a] rounded-2xl bg-[#111111]/20 flex flex-col items-center justify-center p-8 text-center max-w-2xl mx-auto"
+            >
+              <div className="p-4 rounded-full bg-[#111111] border border-[#1a1a1a] text-[#8A248C] mb-6 relative">
+                <Wrench size={24} className="animate-pulse" />
+                <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-[#248C7B] rounded-full animate-ping" />
+                <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-[#248C7B] rounded-full" />
+              </div>
+              
+              <span className="text-[10px] font-semibold text-[#8A248C] tracking-widest uppercase border border-[#8A248C]/20 bg-[#8A248C]/5 px-3 py-1 rounded-full mb-3">
+                {t.emptyState?.badge || "Development"}
+              </span>
 
+              <h3 className="text-xl font-bold text-[#F5F5F5] tracking-tight mb-3">
+                {t.emptyState?.title}
+              </h3>
+
+              <p className="text-sm text-[#F5F5F5]/40 leading-relaxed font-light max-w-md text-balance">
+                {t.emptyState?.desc}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );

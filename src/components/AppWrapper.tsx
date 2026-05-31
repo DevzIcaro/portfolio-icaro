@@ -56,7 +56,7 @@ export default function AppWrapper() {
           className="flex-1 w-full min-h-screen pt-20 md:pt-0 h-auto md:h-screen md:overflow-y-auto transition-all duration-300"
         >
           <div id="home">
-            <Hero />
+            <Hero onNavigate={handleScrollToSection}/>
           </div>
           <div id="about">
             <About />

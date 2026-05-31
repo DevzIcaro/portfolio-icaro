@@ -5,13 +5,17 @@ import { ArrowRight, Mail } from "lucide-react";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa6";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/translations"
+import { FaWhatsapp } from "react-icons/fa6";
 
+interface NavigationProps {
+  onNavigate?: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void;
+}
 
-
-export default function Hero() {
+export default function Hero({ onNavigate }: NavigationProps) {
   const { lang } = useLanguage();
   const t = translations[lang].hero;
   const [index, setIndex] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
 
   // 1. Reseta o índice de forma limpa e isolada APENAS quando o idioma mudar de verdade
   useEffect(() => {
@@ -30,10 +34,25 @@ export default function Hero() {
     return () => clearInterval(timer);
   }, [lang, t.roles.length]); // Agora seguro, sem setIndex concorrente gerando loop
 
-  // Log limpo para checar a saúde do componente
-  useEffect(() => {
-    console.log("Hero sincronizado com sucesso. Idioma ativo:", lang);
-  }, [lang]);
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+
+    if (onNavigate) {
+      onNavigate(e, `#${id}`);
+    }
+
+    const elem = document.getElementById(id);
+    if (elem) {
+      const offset = window.innerWidth >= 768 ? 0 : 96; // Ajustado para a altura da nova barra + respiro
+
+      window.scrollTo({
+        top: elem.offsetTop - offset,
+        behavior: "smooth",
+      });
+    }
+
+    setIsOpen(false);
+  };
 
   console.log("Idioma atual:", lang);
   console.log("Objeto de tradução carregado:", t);
@@ -73,14 +92,26 @@ export default function Hero() {
           </p>
 
           <div className="flex gap-4">
-            <button className="bg-[#8A248C] hover:bg-[#8A248C]/90 text-[#F5F5F5] px-8 py-4 rounded-xl font-medium transition-all flex items-center gap-2">
+            <a href="#projects" onClick={(e) => scrollToSection(e, "projects")} className="bg-[#8A248C] hover:bg-[#8A248C]/90 text-[#F5F5F5] px-8 py-4 rounded-xl font-medium transition-all flex items-center gap-2">
               {t.cta} <ArrowRight size={18} />
-            </button>
-
+            </a>
             <div className="flex items-center gap-4 text-[#F5F5F5]/40 ml-4">
-              <FaGithub className="hover:text-[#248C7B] cursor-pointer transition-colors" />
-              <FaLinkedinIn className="hover:text-[#248C7B] cursor-pointer transition-colors" />
-              <Mail className="hover:text-[#248C7B] cursor-pointer transition-colors" />
+              <a href="https://github.com/DevzIcaro" target="_blank" rel="noopener noreferrer">
+                <FaGithub className="hover:text-[#248C7B] cursor-pointer transition-colors" />
+              </a>
+              <a href="https://www.linkedin.com/in/icarocarneiro/" target="_blank" rel="noopener noreferrer">
+                <FaLinkedinIn className="hover:text-[#248C7B] cursor-pointer transition-colors" />
+              </a>
+              <a href="mailto:contatodevicaro333@gmail.com">
+                <Mail className="hover:text-[#248C7B] cursor-pointer transition-colors" />
+              </a>
+              <a
+                href="https://wa.me/5517992641230?text=Olá%20Ícaro,%20vi%20seu%20trabalho%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20desenvolvimento%20de%20um%20site."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaWhatsapp className="hover:text-[#248C7B] cursor-pointer transition-colors" />
+              </a>
             </div>
           </div>
         </motion.div>
