@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { MapPin, Mail, ExternalLink, MessageCircle } from "lucide-react";
+import { Mail, ExternalLink, MessageCircle } from "lucide-react";
 import { ImLinkedin2 } from "react-icons/im";
 import { VscGithub } from "react-icons/vsc";
 import { useLanguage } from "../context/LanguageContext";
@@ -70,13 +70,7 @@ export default function Footer({ onNavigate }: NavigationProps) {
           <div className="md:col-span-5 lg:col-span-3 flex flex-col gap-6">
             <h4 className="text-white/40 font-semibold text-xs uppercase tracking-widest">{t.contactTitle}</h4>
             <div className="flex flex-col gap-4">
-              <div className="flex items-start gap-3 text-white/60">
-                <MapPin size={16} className="text-[#248C7B] shrink-0 mt-0.5" />
-                <span className="text-sm leading-relaxed">
-                  São Paulo, Brasil
-                </span>
-              </div>
-              
+            
               <a 
                 href="https://wa.me/5517992641230?text=Olá%20Ícaro,%20vi%20seu%20trabalho%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20desenvolvimento%20de%20um%20site."
                 target="_blank" 
@@ -94,7 +88,7 @@ export default function Footer({ onNavigate }: NavigationProps) {
                 className="flex items-center gap-3 group text-white/60 hover:text-white transition-colors duration-200"
               >
                 <VscGithub size={16} className="text-[#248C7B] shrink-0 group-hover:scale-110 transition-transform" />
-                <span className="text-sm">github.com/devzicaro</span>
+                <span className="text-sm">github.com/DevzIcaro</span>
               </a>
 
               <a 
@@ -104,7 +98,7 @@ export default function Footer({ onNavigate }: NavigationProps) {
                 className="flex items-center gap-3 group text-white/60 hover:text-white transition-colors duration-200"
               >
                 <ImLinkedin2 size={16} className="text-[#248C7B] shrink-0 group-hover:scale-110 transition-transform" />
-                <span className="text-sm">linkedin.com/in/icarodepaula</span>
+                <span className="text-sm">linkedin.com/in/icarocarneiro/</span>
               </a>
               
               <a 
@@ -112,7 +106,7 @@ export default function Footer({ onNavigate }: NavigationProps) {
                 className="flex items-center gap-3 group text-white/60 hover:text-white transition-colors duration-200 break-all"
               >
                 <Mail size={16} className="text-[#248C7B] shrink-0 group-hover:scale-110 transition-transform" />
-                <span className="text-sm">carneiro.icaro@outlook.com</span>
+                <span className="text-sm">contatodevicaro333@gmail.com</span>
               </a>
             </div>
           </div>
@@ -121,7 +115,7 @@ export default function Footer({ onNavigate }: NavigationProps) {
             <h4 className="text-white/40 font-semibold text-xs uppercase tracking-widest">{t.specialtyTitle}</h4>
             <div className="flex flex-col gap-4">
               <p className="text-white/30 text-xs leading-relaxed italic font-sans text-balance">
-                "Desenvolvimento escalável focado em ecossistemas Next.js, APIs robustas em NestJS e segurança arquitetural de dados."
+                "Desenvolvimento escalável focado em ecossistemas Web"
               </p>
               <div className="h-px w-full bg-gradient-to-r from-[#248C7B]/40 to-transparent" />
             </div>

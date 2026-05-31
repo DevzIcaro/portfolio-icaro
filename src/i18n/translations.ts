@@ -183,9 +183,9 @@ export const translations = {
       }
     },
     footer: {
-      tagline: "Arquitetando sistemas robustos e interfaces de",
-      taglineEmphasis: "alto impacto global.",
-      subtitle: "Software Engineering & Cybersecurity",
+      tagline: "Arquitetando sistemas robustos e interfaces Premium",
+      taglineEmphasis: "com alto impacto no mercado Digital.",
+      subtitle: "Future - Software Engineering & Cybersecurity",
       description: "Full Stack Developer",
       navTitle: "Navegação",
       contactTitle: "Contato",
@@ -384,10 +384,10 @@ export const translations = {
         submit: "Send Message"
       }
     },
-    footer: {
-      tagline: "Architecting robust systems and high-impact",
-      taglineEmphasis: "global user interfaces.",
-      subtitle: "Software Engineering & Cybersecurity",
+   footer: {
+      tagline: "Architecting robust systems and Premium interfaces",
+      taglineEmphasis: "with a high impact on the Digital market.",
+      subtitle: "Future - Software Engineering & Cybersecurity",
       description: "Full Stack Developer",
       navTitle: "Navigation",
       contactTitle: "Contact",
