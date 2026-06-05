@@ -75,12 +75,10 @@ export default function Services() {
               variants={itemVariants}
               className="group flex flex-col items-start text-left"
             >
-              {/* CONTAINER CIRCULAR DO ÍCONE */}
               <div className="w-14 h-14 rounded-full bg-[#248C7B]/10 border border-[#248C7B]/20 flex items-center justify-center mb-6 group-hover:bg-[#248C7B]/20 group-hover:scale-105 transition-all duration-300 ease-out">
                 {getIcon(service.id)}
               </div>
 
-              {/* TÍTULO E DESCRIÇÃO DO SERVIÇO */}
               <h3 className="text-xl font-bold text-[#F5F5F5] tracking-tight mb-3 group-hover:text-[#248C7B] transition-colors duration-200">
                 {service.title}
               </h3>
@@ -90,7 +88,9 @@ export default function Services() {
               </p>
 
               <a
-                href="#contact"
+                href="https://wa.me/5517992641230?text=Olá%20Ícaro,%20vi%20seu%20trabalho%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20desenvolvimento%20de%20um%20site."
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#248C7B] hover:text-[#248C7B]/80 transition-colors duration-200 group/link"
               >
                 {t.cta}

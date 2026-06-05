@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Eye, ExternalLink, Wrench } from "lucide-react"; 
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/translations";
+import type { AnalyticsEvents } from "@/utils/analyticsContracts";
+import { trackAppEvent } from "@/utils/analytics";
 
 interface ProjectItem {
   id: number;
@@ -23,8 +25,10 @@ export default function Projects() {
   const { lang } = useLanguage();
   const t = translations[lang].projects;
   
+  // O estado interno do componente continua em inglês padrão técnico ("all", "fullstack", etc.)
   const [activeTab, setActiveTab] = useState<string>("all");
 
+  // As categorias mapeiam o ID fixo para o label dinâmico traduzido do i18n
   const categories = [
     { id: "all", label: t.categories.all },
     { id: "fullstack", label: t.categories.fullstack },
@@ -44,6 +48,25 @@ export default function Projects() {
       return item.category === activeTab;
     });
   }, [activeTab, t.items]);
+
+  // Função adaptada para internacionalização e contratos estritos
+  const handleTabChange = (tabId: string) => {
+    setActiveTab(tabId);
+
+    const selectionMap: Record<string, AnalyticsEvents['project_selection']['selection']> = {
+      all: "todos",
+      fullstack: "fullstack",
+      frontend: "frontend",
+      marketing: "marketing"
+    };
+
+    const selectionValue = selectionMap[tabId] || "todos";
+
+    trackAppEvent("project_selection", {
+      selection: selectionValue,
+      context: "portfolio_projects_section"
+    });
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -86,7 +109,7 @@ export default function Projects() {
             return (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => handleTabChange(tab.id)}
                 className={`relative text-sm font-medium transition-colors duration-300 pb-2 outline-none ${
                   isSelected ? "text-[#248C7B]" : "text-[#F5F5F5]/40 hover:text-[#F5F5F5]/80"
                 }`}
@@ -136,6 +159,8 @@ export default function Projects() {
                     <div className="absolute inset-0 bg-[#0B0B0B]/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-10">
                       <a 
                         href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="p-3 rounded-full bg-[#1a1a1a] border border-[#2d2d2d] text-[#F5F5F5] hover:bg-[#248C7B] hover:border-[#248C7B] transition-all duration-200"
                         title="Visualizar Projeto"
                       >

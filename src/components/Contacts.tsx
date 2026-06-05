@@ -111,7 +111,6 @@ export default function Contact() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  // A mágica acontece aqui: Capturamos a platform específica de cada iteração dinamicamente
                   onClick={() => {
                     trackAppEvent("social_click", {
                       platform: social.platform,

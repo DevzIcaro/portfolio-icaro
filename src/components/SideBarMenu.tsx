@@ -6,10 +6,12 @@ import { Home, User, Briefcase, Code2, Cpu, MessageSquare, Mail, Languages, Menu
 import { translations } from "../i18n/translations";
 import { useLanguage } from "../context/LanguageContext";
 import picSidebar from "../assets/pic.jpg";
+import type { AnalyticsEvents } from "@/utils/analyticsContracts";
+import { trackAppEvent } from "@/utils/analytics";
 
 interface NavigationProps {
   onNavigate?: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void
-
+  navigation_click: Omit<AnalyticsEvents["navigation_click"], "target_section">;
 }
 
 
@@ -23,7 +25,7 @@ const navItems = [
   { icon: Mail, id: "contacts" },
 ];
 
-export default function SidebarMenu({ onNavigate }: NavigationProps) {
+export default function SidebarMenu({ onNavigate, navigation_click }: NavigationProps) {
   const { lang, toggleLang } = useLanguage();
   const t = translations[lang].sidebar;
   const [isOpen, setIsOpen] = useState(false);
@@ -44,6 +46,12 @@ export default function SidebarMenu({ onNavigate }: NavigationProps) {
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
 
+    trackAppEvent('navigation_click', {
+      ...navigation_click,
+      context: "navigation_sideBar",
+      target_section: id
+    })
+
     if (onNavigate) {
       onNavigate(e, `#${id}`);
     }
@@ -61,7 +69,7 @@ export default function SidebarMenu({ onNavigate }: NavigationProps) {
     setIsOpen(false);
   };
 
-  
+
 
   const NavigationLinks = () => (
     <nav className="flex-1 space-y-2 overflow-y-auto pr-2 scrollbar-none">

@@ -95,13 +95,14 @@ export default function Footer({ onNavigate, navigation_click}: NavigationProps)
                   key={link.name}
                   href={link.href}
                   onClick={(e) => {
-                    // 1. Executa o scroll/navegação suave original
                     onNavigate(e, link.href);
 
-                    // 2. Dispara o evento de tracking unificando as propriedades fixas e a rota dinâmica
+                    const isMobile = window.innerWidth <= 768;
+
                     trackAppEvent("navigation_click", {
                       ...navigation_click,
-                      target_section: link.href // Ex: "#projects", "#about"
+                      menu_type: isMobile ? "mobile" : "desktop",
+                      target_section: link.href
                     });
                   }}
                   className="text-white/60 hover:text-[#248C7B] text-sm transition-colors duration-300 flex items-center gap-2 group w-fit"

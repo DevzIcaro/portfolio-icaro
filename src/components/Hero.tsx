@@ -11,6 +11,7 @@ import { trackAppEvent } from "@/utils/analytics";
 
 interface NavigationProps {
   onNavigate?: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void;
+  navigation_click: Omit<AnalyticsEvents['navigation_click'],"target_section">;
 }
 
 interface SocialLinkHero {
@@ -43,7 +44,7 @@ const SOCIAL_LINKS_HERO: SocialLinkHero[] = [
 ];
 
 
-export default function Hero({ onNavigate }: NavigationProps) {
+export default function Hero({ onNavigate, navigation_click }: NavigationProps) {
   const { lang } = useLanguage();
   const t = translations[lang].hero;
   const [index, setIndex] = useState(0);
@@ -64,14 +65,20 @@ export default function Hero({ onNavigate }: NavigationProps) {
     return () => clearInterval(timer);
   }, [lang, t.roles.length]);
 
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
 
+    trackAppEvent('navigation_click', {
+      ...navigation_click,
+      context: "navigation_projects_hero",
+      target_section: href
+    });
+
     if (onNavigate) {
-      onNavigate(e, `#${id}`);
+      onNavigate(e, `#${href}`);
     }
 
-    const elem = document.getElementById(id);
+    const elem = document.getElementById(href);
     if (elem) {
       const offset = window.innerWidth >= 768 ? 0 : 96;
 
@@ -122,7 +129,7 @@ export default function Hero({ onNavigate }: NavigationProps) {
           </p>
 
           <div className="flex gap-4">
-            <a href="#projects" onClick={(e) => scrollToSection(e, "projects")} className="bg-[#8A248C] hover:bg-[#8A248C]/90 text-[#F5F5F5] px-8 py-4 rounded-xl font-medium transition-all flex items-center gap-2">
+            <a href="#projects" onClick={(e) => scrollToSection(e, "#projects") } className="bg-[#8A248C] hover:bg-[#8A248C]/90 text-[#F5F5F5] px-8 py-4 rounded-xl font-medium transition-all flex items-center gap-2">
               {t.cta} <ArrowRight size={18} />
             </a>
             <div className="flex items-center gap-4 text-[#F5F5F5]/40 ml-4">
