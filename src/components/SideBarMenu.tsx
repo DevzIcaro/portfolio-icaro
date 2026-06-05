@@ -12,6 +12,7 @@ interface NavigationProps {
 
 }
 
+
 const navItems = [
   { icon: Home, id: "home" },
   { icon: User, id: "about" },
@@ -59,6 +60,8 @@ export default function SidebarMenu({ onNavigate }: NavigationProps) {
 
     setIsOpen(false);
   };
+
+  
 
   const NavigationLinks = () => (
     <nav className="flex-1 space-y-2 overflow-y-auto pr-2 scrollbar-none">

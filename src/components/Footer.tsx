@@ -7,12 +7,49 @@ import { ImLinkedin2 } from "react-icons/im";
 import { VscGithub } from "react-icons/vsc";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/translations";
+import type { AnalyticsEvents } from "@/utils/analyticsContracts";
+import { trackAppEvent } from "@/utils/analytics";
 
 interface NavigationProps {
   onNavigate: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void;
+  navigation_click: Omit<AnalyticsEvents["navigation_click"], "target_section">;
 }
 
-export default function Footer({ onNavigate }: NavigationProps) {
+interface FooterContactItem {
+  icon: React.ReactNode;
+  href: string;
+  labelText: string;
+  platform: AnalyticsEvents['social_click']['platform'];
+}
+
+const FOOTER_CONTACT_LINKS: FooterContactItem[] = [
+  {
+    icon: <MessageCircle size={16} />,
+    href: "https://wa.me/5517992641230?text=Olá%20Ícaro,%20vi%20seu%20trabalho%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20desenvolvimento%20de%20um%20site.",
+    labelText: "(17) 99264-1230",
+    platform: "whatsapp"
+  },
+  {
+    icon: <VscGithub size={16} />,
+    href: "https://github.com/DevzIcaro",
+    labelText: "github.com/DevzIcaro",
+    platform: "github"
+  },
+  {
+    icon: <ImLinkedin2 size={16} />,
+    href: "https://www.linkedin.com/in/icarocarneiro/",
+    labelText: "linkedin.com/in/icarocarneiro/",
+    platform: "linkedin"
+  },
+  {
+    icon: <Mail size={16} />,
+    href: "mailto:contatodevicaro333@gmail.com",
+    labelText: "contatodevicaro333@gmail.com",
+    platform: "e-mail"
+  }
+];
+
+export default function Footer({ onNavigate, navigation_click}: NavigationProps) {
   const { lang } = useLanguage();
   const t = translations[lang].footer;
   const currentYear = new Date().getFullYear();
@@ -57,7 +94,16 @@ export default function Footer({ onNavigate }: NavigationProps) {
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={(e) => onNavigate(e, link.href)}
+                  onClick={(e) => {
+                    // 1. Executa o scroll/navegação suave original
+                    onNavigate(e, link.href);
+
+                    // 2. Dispara o evento de tracking unificando as propriedades fixas e a rota dinâmica
+                    trackAppEvent("navigation_click", {
+                      ...navigation_click,
+                      target_section: link.href // Ex: "#projects", "#about"
+                    });
+                  }}
                   className="text-white/60 hover:text-[#248C7B] text-sm transition-colors duration-300 flex items-center gap-2 group w-fit"
                 >
                   <span className="h-px w-0 bg-[#248C7B] transition-all duration-300 group-hover:w-3" />
@@ -70,44 +116,33 @@ export default function Footer({ onNavigate }: NavigationProps) {
           <div className="md:col-span-5 lg:col-span-3 flex flex-col gap-6">
             <h4 className="text-white/40 font-semibold text-xs uppercase tracking-widest">{t.contactTitle}</h4>
             <div className="flex flex-col gap-4">
-            
-              <a 
-                href="https://wa.me/5517992641230?text=Olá%20Ícaro,%20vi%20seu%20trabalho%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20desenvolvimento%20de%20um%20site."
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="flex items-center gap-3 group text-white/60 hover:text-white transition-colors duration-200"
-              >
-                <MessageCircle size={16} className="text-[#248C7B] shrink-0 group-hover:scale-110 transition-transform" />
-                <span className="text-sm font-medium">(17) 99264-1230</span>
-              </a>
-              
-              <a 
-                href="https://github.com/DevzIcaro"
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="flex items-center gap-3 group text-white/60 hover:text-white transition-colors duration-200"
-              >
-                <VscGithub size={16} className="text-[#248C7B] shrink-0 group-hover:scale-110 transition-transform" />
-                <span className="text-sm">github.com/DevzIcaro</span>
-              </a>
+              {FOOTER_CONTACT_LINKS.map((item, index) => {
+                const isEmail = item.platform === "e-mail";
 
-              <a 
-                href="https://www.linkedin.com/in/icarocarneiro/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="flex items-center gap-3 group text-white/60 hover:text-white transition-colors duration-200"
-              >
-                <ImLinkedin2 size={16} className="text-[#248C7B] shrink-0 group-hover:scale-110 transition-transform" />
-                <span className="text-sm">linkedin.com/in/icarocarneiro/</span>
-              </a>
-              
-              <a 
-                href="mailto:contatodevicaro333@gmail.com" 
-                className="flex items-center gap-3 group text-white/60 hover:text-white transition-colors duration-200 break-all"
-              >
-                <Mail size={16} className="text-[#248C7B] shrink-0 group-hover:scale-110 transition-transform" />
-                <span className="text-sm">contatodevicaro333@gmail.com</span>
-              </a>
+                return (
+                  <a
+                    key={index}
+                    href={item.href}
+                    target={isEmail ? undefined : "_blank"}
+                    rel={isEmail ? undefined : "noopener noreferrer"}
+                    onClick={() => {
+                      trackAppEvent("social_click", {
+                        platform: item.platform,
+                        context: "footer_contact_column"
+                      });
+                    }}
+                    className="flex items-center gap-3 group text-white/60 hover:text-white transition-colors duration-200 break-all"
+                  >
+                    {React.cloneElement(item.icon as React.ReactElement<{ className?: string }>, {
+                      className: "text-[#248C7B] shrink-0 group-hover:scale-110 transition-transform duration-200"
+                    })}
+                    
+                    <span className={`text-sm ${item.platform === 'whatsapp' ? 'font-medium' : ''}`}>
+                      {item.labelText}
+                    </span>
+                  </a>
+                );
+              })}
             </div>
           </div>
 

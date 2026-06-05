@@ -1,27 +1,59 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { Mail, MessageSquare, Send } from "lucide-react";
+import { Mail, MessageSquare } from "lucide-react";
 import { VscGithub } from "react-icons/vsc";
 import { ImLinkedin2 } from "react-icons/im";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/translations";
+import type { AnalyticsEvents } from "@/utils/analyticsContracts";
+import { trackAppEvent } from "@/utils/analytics";
+
+interface SocialLinkItem {
+  icon: React.ReactNode;
+  href: string;
+  platform: AnalyticsEvents['social_click']['platform'];
+}
 
 export default function Contact() {
   const { lang } = useLanguage();
   const t = translations[lang].contact;
 
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  // const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-    setFormData({ name: "", email: "", message: "" });
-    setIsSubmitting(false);
-  };
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setIsSubmitting(true);
+  //   await new Promise((resolve) => setTimeout(resolve, 1200));
+  //   setFormData({ name: "", email: "", message: "" });
+  //   setIsSubmitting(false);
+  // };
+
+  const SOCIAL_LINKS: SocialLinkItem[] = [
+  { 
+    icon: <VscGithub size={16} />, 
+    href: "https://github.com/DevzIcaro", 
+    platform: "github",
+  },
+  { 
+    icon: <ImLinkedin2 size={16} />, 
+    href: "https://www.linkedin.com/in/icarocarneiro/", 
+    platform: "linkedin" 
+  },
+  { 
+    icon: <MessageSquare size={16} />, 
+    href: "https://wa.me/5517992641230?text=Olá%20Ícaro", 
+    platform: "whatsapp" 
+  },
+  { 
+    icon: <Mail size={16} />, 
+    href: "mailto:contatodevicaro333@gmail.com", 
+    platform: "e-mail" 
+  }
+];
+
 
   const containerVariants = {
     hidden: { opacity: 0, y: 40 },
@@ -73,17 +105,19 @@ export default function Contact() {
             </div>
 
             <div className="flex flex-wrap justify-center gap-18 pb-10">
-              {[
-                { icon: <VscGithub size={16} />, href: "https://github.com/DevzIcaro" },
-                { icon: <ImLinkedin2 size={16} />, href: "https://www.linkedin.com/in/icarocarneiro/" },
-                { icon: <MessageSquare size={16} />, href: "https://wa.me/5517992641230?text=Olá%20Ícaro,%20vi%20seu%20trabalho%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20desenvolvimento%20de%20um%20site." },
-                { icon: <Mail size={16} />, href: "mailto:contatodevicaro333@gmail.com" }
-              ].map((social, index) => (
+              {SOCIAL_LINKS.map((social, index) => (
                 <a
                   key={index}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  // A mágica acontece aqui: Capturamos a platform específica de cada iteração dinamicamente
+                  onClick={() => {
+                    trackAppEvent("social_click", {
+                      platform: social.platform,
+                      context: "contact_social_section"
+                    });
+                  }}
                   className="w-10 h-10 rounded-xl bg-[#070707] border border-[#1A1A1A] text-[#F5F5F5]/60 flex items-center justify-center hover:text-[#248C7B] hover:border-[#248C7B]/40 transition-all duration-300"
                 >
                   {social.icon}

@@ -1,15 +1,47 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Mail } from "lucide-react";
-import { FaLinkedinIn, FaGithub } from "react-icons/fa6";
+import { ArrowRight, Mail, MessageSquare } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/translations"
-import { FaWhatsapp } from "react-icons/fa6";
+import { VscGithub } from "react-icons/vsc";
+import { ImLinkedin2 } from "react-icons/im";
+import type { AnalyticsEvents } from "@/utils/analyticsContracts";
+import { trackAppEvent } from "@/utils/analytics";
 
 interface NavigationProps {
   onNavigate?: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void;
 }
+
+interface SocialLinkHero {
+  icon: React.ReactNode;
+  href: string;
+  platform: AnalyticsEvents['social_click']['platform'];
+}
+
+const SOCIAL_LINKS_HERO: SocialLinkHero[] = [
+  {
+    icon: <VscGithub size={16} />,
+    href: "https://github.com/DevzIcaro",
+    platform: "github",
+  },
+  {
+    icon: <ImLinkedin2 size={16} />,
+    href: "https://www.linkedin.com/in/icarocarneiro/",
+    platform: "linkedin"
+  },
+  {
+    icon: <MessageSquare size={16} />,
+    href: "https://wa.me/5517992641230?text=Olá%20Ícaro",
+    platform: "whatsapp"
+  },
+  {
+    icon: <Mail size={16} />,
+    href: "mailto:contatodevicaro333@gmail.com",
+    platform: "e-mail"
+  }
+];
+
 
 export default function Hero({ onNavigate }: NavigationProps) {
   const { lang } = useLanguage();
@@ -94,22 +126,24 @@ export default function Hero({ onNavigate }: NavigationProps) {
               {t.cta} <ArrowRight size={18} />
             </a>
             <div className="flex items-center gap-4 text-[#F5F5F5]/40 ml-4">
-              <a href="https://github.com/DevzIcaro" target="_blank" rel="noopener noreferrer">
-                <FaGithub className="hover:text-[#248C7B] cursor-pointer transition-colors" />
-              </a>
-              <a href="https://www.linkedin.com/in/icarocarneiro/" target="_blank" rel="noopener noreferrer">
-                <FaLinkedinIn className="hover:text-[#248C7B] cursor-pointer transition-colors" />
-              </a>
-              <a href="mailto:contatodevicaro333@gmail.com">
-                <Mail className="hover:text-[#248C7B] cursor-pointer transition-colors" />
-              </a>
-              <a
-                href="https://wa.me/5517992641230?text=Olá%20Ícaro,%20vi%20seu%20trabalho%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20desenvolvimento%20de%20um%20site."
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaWhatsapp className="hover:text-[#248C7B] cursor-pointer transition-colors" />
-              </a>
+              {SOCIAL_LINKS_HERO.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  // A mágica acontece aqui: Capturamos a platform específica de cada iteração dinamicamente
+                  onClick={() => {
+                    trackAppEvent("social_click", {
+                      platform: social.platform,
+                      context: "contact_social_section_hero"
+                    });
+                  }}
+                  className="w-10 h-10 rounded-xl bg-[#070707] border border-[#1A1A1A] text-[#F5F5F5]/60 flex items-center justify-center hover:text-[#248C7B] hover:border-[#248C7B]/40 transition-all duration-300"
+                >
+                  {social.icon}
+                </a>
+              ))}
             </div>
           </div>
         </motion.div>
