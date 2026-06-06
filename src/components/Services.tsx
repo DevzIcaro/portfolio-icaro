@@ -6,6 +6,7 @@ import { ArrowRight, Sparkles, Code2, Server } from "lucide-react";
 import { LuMonitorSmartphone } from "react-icons/lu";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/translations";
+import { trackAppEvent } from "@/utils/analytics";
 
 export default function Services() {
   const { lang } = useLanguage();
@@ -91,6 +92,14 @@ export default function Services() {
                 href="https://wa.me/5517992641230?text=Olá%20Ícaro,%20vi%20seu%20trabalho%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20desenvolvimento%20de%20um%20site."
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(e) => {
+                  e.stopPropagation();
+
+                  trackAppEvent("social_click", {
+                    platform: 'whatsapp',
+                    context: "redirect_click_whatsapp"
+                  });
+                }}
                 className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#248C7B] hover:text-[#248C7B]/80 transition-colors duration-200 group/link"
               >
                 {t.cta}
