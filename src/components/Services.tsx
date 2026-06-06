@@ -93,11 +93,10 @@ export default function Services() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => {
-                  e.stopPropagation();
 
                   trackAppEvent("social_click", {
                     platform: 'whatsapp',
-                    context: "redirect_click_whatsapp"
+                    context: "whatsapp_click_services"
                   });
                 }}
                 className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#248C7B] hover:text-[#248C7B]/80 transition-colors duration-200 group/link"

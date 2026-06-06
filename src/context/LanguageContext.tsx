@@ -1,4 +1,5 @@
 "use client";
+import { trackAppEvent } from '@/utils/analytics';
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 export type Language = 'pt' | 'en';
@@ -27,8 +28,17 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
     setLang((prev) => {
       const next = prev === 'pt' ? 'en' : 'pt';
       localStorage.setItem('lang', next);
+      
+      trackAppEvent("language_change", {
+        current_lang: next,
+        previous_lang: prev,
+        context: "sidebar_language_toggle"
+      })
+      
       return next;
     });
+
+
   };
 
   return (
