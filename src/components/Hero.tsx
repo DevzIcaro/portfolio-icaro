@@ -79,6 +79,7 @@ export default function Hero({ onNavigate, navigation_click }: NavigationProps) 
     }
 
     const elem = document.getElementById(href);
+    
     if (elem) {
       const offset = window.innerWidth >= 768 ? 0 : 96;
 
@@ -90,10 +91,6 @@ export default function Hero({ onNavigate, navigation_click }: NavigationProps) 
 
     setIsOpen(false);
   };
-
-  console.log("Idioma atual:", lang);
-  console.log("Objeto de tradução carregado:", t);
-
 
   return (
     <section className="relative min-h-screen flex items-center px-8 lg:px-20 bg-[#0B0B0B]">
@@ -129,7 +126,7 @@ export default function Hero({ onNavigate, navigation_click }: NavigationProps) 
           </p>
 
           <div className="flex gap-4">
-            <a href="#projects" onClick={(e) => scrollToSection(e, "#projects") } className="bg-[#8A248C] hover:bg-[#8A248C]/90 text-[#F5F5F5] px-8 py-4 rounded-xl font-medium transition-all flex items-center gap-2">
+            <a href="projects" onClick={(e) => scrollToSection(e, "projects") } className="bg-[#8A248C] hover:bg-[#8A248C]/90 text-[#F5F5F5] px-8 py-4 rounded-xl font-medium transition-all flex items-center gap-2">
               {t.cta} <ArrowRight size={18} />
             </a>
             <div className="flex items-center gap-4 text-[#F5F5F5]/40 ml-4">
@@ -139,7 +136,6 @@ export default function Hero({ onNavigate, navigation_click }: NavigationProps) 
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  // A mágica acontece aqui: Capturamos a platform específica de cada iteração dinamicamente
                   onClick={() => {
                     trackAppEvent("social_click", {
                       platform: social.platform,
