@@ -25,10 +25,8 @@ export default function Projects() {
   const { lang } = useLanguage();
   const t = translations[lang].projects;
   
-  // O estado interno do componente continua em inglês padrão técnico ("all", "fullstack", etc.)
   const [activeTab, setActiveTab] = useState<string>("all");
 
-  // As categorias mapeiam o ID fixo para o label dinâmico traduzido do i18n
   const categories = [
     { id: "all", label: t.categories.all },
     { id: "fullstack", label: t.categories.fullstack },
@@ -49,7 +47,6 @@ export default function Projects() {
     });
   }, [activeTab, t.items]);
 
-  // Função adaptada para internacionalização e contratos estritos
   const handleTabChange = (tabId: string) => {
     setActiveTab(tabId);
 

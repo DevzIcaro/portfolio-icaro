@@ -58,7 +58,7 @@ export default function SidebarMenu({ onNavigate, navigation_click }: Navigation
 
     const elem = document.getElementById(id);
     if (elem) {
-      const offset = window.innerWidth >= 768 ? 0 : 96; // Ajustado para a altura da nova barra + respiro
+      const offset = window.innerWidth >= 768 ? 0 : 96;
 
       window.scrollTo({
         top: elem.offsetTop - offset,
