@@ -125,11 +125,11 @@ export default function Hero({ onNavigate, navigation_click }: NavigationProps) 
             {t.intro}
           </p>
 
-          <div className="flex gap-4">
-            <a href="projects" onClick={(e) => scrollToSection(e, "projects") } className="bg-[#8A248C] hover:bg-[#8A248C]/90 text-[#F5F5F5] px-8 py-4 rounded-xl font-medium transition-all flex items-center gap-2">
+          <div className="flex flex-col md:flex-row gap-4 md:items-center">
+            <a href="projects" onClick={(e) => scrollToSection(e, "projects") } className="w-full md:w-auto bg-[#8A248C] hover:bg-[#8A248C]/90 text-[#F5F5F5] px-8 py-4 rounded-xl font-medium transition-all flex items-center justify-center gap-2">
               {t.cta} <ArrowRight size={18} />
             </a>
-            <div className="flex items-center gap-4 text-[#F5F5F5]/40 ml-4">
+            <div className="w-full md:w-auto flex items-center justify-between md:justify-start gap-4 text-[#F5F5F5]/40 md:ml-4">
               {SOCIAL_LINKS_HERO.map((social, index) => (
                 <a
                   key={index}
@@ -142,7 +142,7 @@ export default function Hero({ onNavigate, navigation_click }: NavigationProps) 
                       context: "contact_social_section_hero"
                     });
                   }}
-                  className="w-10 h-10 rounded-xl bg-[#070707] border border-[#1A1A1A] text-[#F5F5F5]/60 flex items-center justify-center hover:text-[#248C7B] hover:border-[#248C7B]/40 transition-all duration-300"
+                  className="w-10 h-10 rounded-xl bg-[#070707] border border-[#1A1A1A] text-[#F5F5F5]/60 flex items-center justify-center hover:text-[#248C7B] hover:border-[#248C7B]/40 transition-all duration-300 shrink-0"
                 >
                   {social.icon}
                 </a>
