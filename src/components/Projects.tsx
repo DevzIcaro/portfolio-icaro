@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Eye, ExternalLink, Wrench } from "lucide-react"; 
+import { Eye, Wrench } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/translations";
 import type { AnalyticsEvents } from "@/utils/analyticsContracts";
@@ -163,7 +163,8 @@ export default function Projects() {
                       >
                         <Eye size={18} />
                       </a>
-                      <a 
+                      {/* Link do repositório removido: no mobile o clique enviava direto ao GitHub, quebrando a imersão da navegação. Deixamos apenas o link do site. */}
+                      {/* <a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -171,7 +172,7 @@ export default function Projects() {
                         title="Ver Repositório"
                       >
                         <ExternalLink size={18} />
-                      </a>
+                      </a> */}
                     </div>
                   </div>
 
