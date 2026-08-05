@@ -144,14 +144,19 @@ export default function Projects() {
                 >
                   <div className="relative aspect-[16/10] bg-[#111111] border border-[#1a1a1a] rounded-2xl overflow-hidden mb-6 group-hover:border-[#248C7B]/30 transition-all duration-300">
                     {project.image ? (
-                      <img 
-                        src={typeof project.image === 'object' && 'src' in project.image ? project.image.src : project.image} 
+                      <img
+                        src={typeof project.image === 'object' && 'src' in project.image ? project.image.src : project.image}
                         alt={project.title}
                         className="absolute inset-0 w-full h-full object-cover object-top opacity-80 group-hover:scale-105 transition-transform duration-500 ease-out"
                       />
                     ) : (
                       <div className="absolute inset-0 bg-gradient-to-br from-[#1c1c1c] to-[#090909] opacity-75" />
                     )}
+
+                    {/* Indicador de card clicável — visível só no mobile, já que lá não existe hover para revelar o overlay abaixo */}
+                    <span className="absolute top-3 right-3 z-20 flex items-center justify-center w-9 h-9 rounded-full bg-[#0B0B0B]/80 border border-[#248C7B]/40 text-[#248C7B] backdrop-blur-sm sm:hidden pointer-events-none">
+                      <Eye size={16} />
+                    </span>
 
                     <div className="absolute inset-0 bg-[#0B0B0B]/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-10">
                       <a 

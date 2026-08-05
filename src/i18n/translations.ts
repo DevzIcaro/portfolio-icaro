@@ -36,8 +36,8 @@ export const translations = {
 
       jobs: [
         {
-          period: "JAN 2025 - ATUAL",
-          role: "Desenvolvedor Fullstack Junior",
+          period: "JAN 2025 - JULHO 2026",
+          role: "Analista de Software & Desenvolvedor Fullstack",
           company: "GO4Digital",
           desc: "Desenvolvimento e manutenção de aplicativos React e microsserviços com Next.js, TailwindCSS e Shadcn UI em mais de 5 projetos ativos simultaneamente. Criação de APIs escaláveis com NestJS, GraphQL e REST integradas via Prisma e TypeORM. Escrita de testes unitários automatizados mitigando bugs críticos com redução de 17.5% nas falhas em produção. Colaboração ativa em code reviews semanais, reuniões de refinamento ágil e elaboração de documentações técnicas de arquitetura.",
           tags: ["Next.js", "React", "NestJS", "GraphQL", "Prisma", "TypeORM", "TailwindCSS", "Shadcn UI", "Testes Unitários"]
@@ -238,8 +238,8 @@ export const translations = {
 
       jobs: [
         {
-          period: "JAN 2025 - PRESENT",
-          role: "Front-end & Back-end Developer",
+          period: "JAN 2025 - JULY 2026",
+          role: "Software Analyst & Fullstack Developer",
           company: "GO4Digital",
           desc: "Developing and maintaining React applications and microservices with Next.js, TailwindCSS, and Shadcn UI across more than 5 active projects simultaneously. Creating scalable APIs (NestJS, GraphQL, REST) integrated via Prisma and TypeORM, optimizing technical architecture and data flows. Writing automated unit tests to reduce reported production bugs by 17.5%. Active collaboration in weekly code reviews, agile refinement meetings, and crafting technical architecture documentation.",
           tags: ["Next.js", "React", "NestJS", "GraphQL", "Prisma", "TypeORM", "TailwindCSS", "Shadcn UI", "Unit Testing"]

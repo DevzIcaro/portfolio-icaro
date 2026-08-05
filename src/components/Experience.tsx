@@ -130,15 +130,15 @@ export default function Experience() {
                       : "border-[#111111] hover:border-[#8A248C]/20"
                   }`}
                 >
-                  <div className="flex justify-between items-start gap-4 mb-3">
-                    <h3 className="text-lg font-bold text-[#F5F5F5] group-hover:text-[#248C7B] transition-colors duration-300">
-                      {edu.title}
-                    </h3>
-                    <span className={`text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-md ${
+                  <div className="flex flex-col items-center text-center gap-3 mb-3 sm:flex-row sm:items-start sm:justify-between sm:text-left sm:gap-4">
+                    <span className={`order-1 shrink-0 sm:order-2 text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-md ${
                       idx === 0 ? "bg-[#248C7B]/10 text-[#248C7B]" : "bg-[#111111] text-[#F5F5F5]/40"
                     }`}>
                       {edu.badge}
                     </span>
+                    <h3 className="order-2 sm:order-1 text-lg font-bold text-[#F5F5F5] group-hover:text-[#248C7B] transition-colors duration-300">
+                      {edu.title}
+                    </h3>
                   </div>
                   
                   <div className="flex items-center gap-2 text-xs font-medium text-[#F5F5F5]/40 mb-3">
