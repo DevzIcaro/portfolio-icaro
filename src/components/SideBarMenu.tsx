@@ -76,6 +76,7 @@ export default function SidebarMenu({ onNavigate, navigation_click }: Navigation
       {navItems.map((item, index) => (
         <a
           key={item.id}
+          data-cy={`nav-${item.id}`}
           href={`#${item.id}`}
           onClick={(e) => scrollToSection(e, item.id)}
           className="group flex items-center gap-4 px-4 py-3 text-[#F5F5F5]/60 hover:text-[#C2FFF5] transition-all duration-300 rounded-xl hover:bg-[#111111]"
@@ -94,6 +95,7 @@ export default function SidebarMenu({ onNavigate, navigation_click }: Navigation
     <>
       <div className="fixed top-0 left-0 right-0 h-20 bg-[#0B0B0B]/90 backdrop-blur-md border-b border-[#111111]/80 px-6 flex items-center justify-between z-[100] md:hidden w-full">
         <button
+          data-cy="lang-toggle-mobile"
           onClick={toggleLang}
           className="p-2.5 rounded-lg bg-[#111111] border border-[#161616] cursor-pointer text-[#F5F5F5]/50 hover:text-[#C2FFF5] transition-colors z-[110]"
           title="Toggle Language"
@@ -104,6 +106,7 @@ export default function SidebarMenu({ onNavigate, navigation_click }: Navigation
         <span className="text-[#F5F5F5] font-bold tracking-widest text-xs uppercase">Ícaro.Dev</span>
 
         <button
+          data-cy="menu-toggle-mobile"
           onClick={toggleMenu}
           className="p-2.5 rounded-lg bg-[#111111] border border-[#161616] text-[#F5F5F5] hover:text-[#248C7B] transition-colors flex items-center justify-center cursor-pointer z-[110]"
           aria-label="Toggle Menu"
@@ -129,6 +132,7 @@ export default function SidebarMenu({ onNavigate, navigation_click }: Navigation
               </div>
             </div>
             <button
+              data-cy="lang-toggle-desktop"
               onClick={toggleLang}
               className="p-2 rounded-lg bg-[#111111] cursor-pointer text-[#F5F5F5]/50 hover:text-[#C2FFF5] transition-colors"
               title="Toggle Language"

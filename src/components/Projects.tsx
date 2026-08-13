@@ -106,6 +106,7 @@ export default function Projects() {
             return (
               <button
                 key={tab.id}
+                data-cy={`category-tab-${tab.id}`}
                 onClick={() => handleTabChange(tab.id)}
                 className={`relative text-sm font-medium transition-colors duration-300 pb-2 outline-none ${
                   isSelected ? "text-[#248C7B]" : "text-[#F5F5F5]/40 hover:text-[#F5F5F5]/80"
@@ -137,10 +138,12 @@ export default function Projects() {
             >
               {filteredProjects.map((project) => (
                 <motion.div
-                  layout 
+                  layout
                   key={project.id}
                   variants={cardVariants}
                   className="group flex flex-col"
+                  data-cy="project-card"
+                  data-category={project.category.join(',')}
                 >
                   <div className="relative aspect-[16/10] bg-[#111111] border border-[#1a1a1a] rounded-2xl overflow-hidden mb-6 group-hover:border-[#248C7B]/30 transition-all duration-300">
                     {project.image ? (
@@ -214,6 +217,7 @@ export default function Projects() {
           ) : (
             <motion.div
               key="empty-state"
+              data-cy="projects-empty-state"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}

@@ -108,6 +108,7 @@ export default function Contact() {
               {SOCIAL_LINKS.map((social, index) => (
                 <a
                   key={index}
+                  data-cy={`social-link-${social.platform}`}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"

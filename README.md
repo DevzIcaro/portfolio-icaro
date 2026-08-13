@@ -30,12 +30,16 @@ Este portfolio reune secoes institucionais e profissionais em uma experiencia si
 - [Lucide React](https://lucide.dev/)
 - [React Icons](https://react-icons.github.io/react-icons/)
 - [Google Tag Manager](https://tagmanager.google.com/)
+- [Cypress](https://www.cypress.io/) — testes E2E
 
 ## Estrutura
 
 ```text
 .
-|-- .github/workflows/      # Workflow de deploy para GitHub Pages
+|-- .github/workflows/      # Workflows de CI (testes) e deploy para GitHub Pages
+|-- cypress/
+|   |-- e2e/                # Specs de teste end-to-end
+|   `-- support/            # Config global, interceptors e constantes de viewport
 |-- public/                 # Favicons e arquivos publicos
 |-- src/
 |   |-- assets/             # Imagens utilizadas nas secoes
@@ -48,6 +52,7 @@ Este portfolio reune secoes institucionais e profissionais em uma experiencia si
 |   |-- styles/             # Estilos globais e Tailwind
 |   `-- utils/              # Contratos e helpers de analytics
 |-- astro.config.mjs
+|-- cypress.config.ts
 |-- package.json
 `-- tsconfig.json
 ```
@@ -89,20 +94,74 @@ http://localhost:4321
 | `pnpm build` | Gera a versao de producao em `dist/` |
 | `pnpm preview` | Executa um preview local do build |
 | `pnpm astro` | Executa comandos da CLI do Astro |
+| `pnpm test:e2e` | Roda a suite Cypress em modo headless (`cypress run`) |
+| `pnpm exec cypress open` | Abre a interface interativa do Cypress pra escrever/depurar specs |
 
-## Deploy
+## Testes E2E (Cypress)
 
-O deploy esta configurado via GitHub Actions em `.github/workflows/deploy.yml`.
+O projeto tem uma suite Cypress cobrindo os principais fluxos de interacao do usuario. Os testes rodam contra elementos marcados com atributos `data-cy`, nunca por classe CSS ou texto — assim eles nao quebram quando o estilo ou o idioma muda.
 
-O fluxo executa automaticamente quando ha push na branch `main`:
+### Specs (`cypress/e2e/`)
 
-1. Instala o `pnpm`.
-2. Configura Node.js 22.
-3. Instala as dependencias.
-4. Executa o build do Astro.
-5. Publica o conteudo da pasta `dist/` no GitHub Pages.
+| Spec | Cobertura |
+| --- | --- |
+| `spec-language.cy.ts` | Troca de idioma PT/EN e persistencia em `localStorage` (desktop e mobile) |
+| `spec-navbar-navigation.cy.ts` | Navegacao pelos 7 itens do menu, incluindo abertura do menu hamburguer no mobile |
+| `spec-project-filter.cy.ts` | Filtro de categoria de projetos (contagem de cards e categoria correta em cada um) |
+| `spec-social-links.cy.ts` | Atributos (`href`, `target`, `rel`) e evento de analytics de cada link social |
+
+Todos os specs acima rodam em dois tamanhos de tela (`cypress/support/viewports.ts`), baseados no breakpoint `md` (768px) do Tailwind — o unico que muda a estrutura de navegacao (sidebar fixa vs. menu hamburguer):
+
+- `mobile`: 375x667
+- `desktop`: 1280x800
+
+### Suporte global (`cypress/support/e2e.js`)
+
+O site carrega o Google Tag Manager real em producao. Pra evitar tráfego de teste poluindo o Analytics de verdade e falhas causadas por scripts de terceiros, um `beforeEach` global intercepta e "stuba" as chamadas pro GTM/GA antes de cada teste.
+
+### Rodando localmente
+
+```bash
+pnpm dev              # em um terminal, mantem o servidor de dev rodando
+pnpm exec cypress open  # em outro terminal, abre a interface do Cypress
+```
+
+## CI/CD
+
+O pipeline tem dois workflows em `.github/workflows/`:
+
+### `ci.yml` — Pull Requests
+
+Roda a suite Cypress completa (build + preview + testes) a cada PR aberto contra a `main`, dando feedback antes do merge.
+
+### `deploy.yml` — Deploy em producao
+
+Dispara em todo push na branch `main` (ou manualmente via `workflow_dispatch`), com 3 jobs encadeados por `needs`:
+
+```text
+test  →  build  →  deploy
+```
+
+1. **`test`**: builda o projeto, sobe o `astro preview` e roda todos os specs Cypress no Chrome headless via `cypress-io/github-action`. Se qualquer teste falhar, o pipeline para aqui e os screenshots de falha sao salvos como artefato do GitHub Actions.
+2. **`build`**: so roda se `test` passar. Builda novamente e prepara o artefato pro GitHub Pages.
+3. **`deploy`**: so roda se `build` passar. Publica de fato em producao.
 
 As configuracoes de `site` e `base` ficam em `astro.config.mjs`, apontando para o GitHub Pages do projeto.
+
+### Proximos passos / estudos futuros
+
+O pipeline ainda nao tem um gate de **lint** (ESLint). O plano é adicionar um job `lint` rodando **antes** do `test`, ja que verificar o codigo estaticamente e mais rapido e barato do que subir servidor e rodar E2E:
+
+```text
+lint  →  test (cypress)  →  build  →  deploy
+```
+
+Pontos a decidir quando isso for implementado:
+
+- Setup do ESLint 9 (flat config) pro stack do projeto: TypeScript + React (JSX/TSX) + Astro (`eslint-plugin-astro` + `astro-eslint-parser`) + regras de hooks (`eslint-plugin-react-hooks`).
+- Adicionar script `pnpm lint` no `package.json`.
+- Adicionar um novo job `lint` no `deploy.yml` (e no `ci.yml`) antes do job `test`, com `test: needs: lint`.
+- Rodar `pnpm install` localmente depois de adicionar as dependencias novas, pra manter o `pnpm-lock.yaml` sincronizado (o CI usa `--frozen-lockfile`, entao lockfile desatualizado quebra o pipeline).
 
 ## Analytics
 
