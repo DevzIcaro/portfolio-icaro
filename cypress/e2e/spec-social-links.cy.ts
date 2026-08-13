@@ -25,7 +25,14 @@ function runSocialLinksTests(goToContacts: () => void) {
     })
 
     it(`dispara o evento de analytics ao clicar: ${platform}`, () => {
-      cy.get(`[data-cy=social-link-${platform}]`).click()
+      // Github/LinkedIn/WhatsApp abrem aba nova de verdade e o mailto: aciona o cliente
+      // de e-mail do sistema operacional — em modo headless isso trava o navegador.
+      // Neutralizamos a navegação (removendo target e zerando o href) pra isolar só o
+      // que queremos validar aqui: o onClick disparando o evento de analytics.
+      cy.get(`[data-cy=social-link-${platform}]`)
+        .invoke('removeAttr', 'target')
+        .invoke('attr', 'href', 'javascript:void(0)')
+        .click()
 
       cy.window().its('dataLayer').then((dataLayer) => {
         const lastEvent = dataLayer[dataLayer.length - 1]
