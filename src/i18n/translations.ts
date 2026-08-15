@@ -175,13 +175,33 @@ export const translations = {
         { value: "Multi", label: "Cloud Engine" }
       ],
       form: {
+        sectionTag: "FALE COMIGO",
+        sectionTitle: "Envie sua",
+        sectionTitleEmphasis: "Mensagem Agora",
+        sectionDesc: "Preencha o formulário abaixo e sua mensagem chega direto no meu WhatsApp.",
         name: "Nome Completo",
-        email: "E-mail Profissional",
-        message: "Sua Mensagem",
-        placeholderName: "Ex: Ícaro de Paula",
+        phone: "Celular",
+        email: "E-mail",
+        cep: "CEP",
+        city: "Cidade",
+        message: "Mensagem",
+        optional: "opcional",
+        placeholderName: "Ex: João da Silva",
+        placeholderPhone: "11987654321",
         placeholderEmail: "seu@email.com",
+        placeholderCep: "00000-000",
+        placeholderCity: "Preenchido automaticamente pelo CEP",
         placeholderMsg: "Descreva o escopo do projeto ou sua proposta...",
-        submit: "Enviar Mensagem"
+        submit: "Enviar pelo WhatsApp",
+        cepLoading: "Buscando cidade...",
+        cepError: "CEP não encontrado. Preencha a cidade manualmente.",
+        errors: {
+          required: "Campo obrigatório.",
+          invalidEmail: "Informe um e-mail válido.",
+          maxLength: "E-mail deve ter no máximo 200 caracteres.",
+          invalidPhone: "Informe um celular válido com DDD.",
+          invalidCep: "CEP deve ter 8 dígitos."
+        }
       }
     },
     footer: {
@@ -377,13 +397,33 @@ export const translations = {
         { value: "Multi", label: "Cloud Engine" }
       ],
       form: {
+        sectionTag: "GET IN TOUCH",
+        sectionTitle: "Send Your",
+        sectionTitleEmphasis: "Message Now",
+        sectionDesc: "Fill in the form below and your message goes straight to my WhatsApp.",
         name: "Full Name",
-        email: "Professional E-mail",
-        message: "Your Message",
-        placeholderName: "e.g., Icaro de Paula",
+        phone: "Phone",
+        email: "E-mail",
+        cep: "ZIP Code (CEP)",
+        city: "City",
+        message: "Message",
+        optional: "optional",
+        placeholderName: "e.g., John Smith",
+        placeholderPhone: "11987654321",
         placeholderEmail: "your@email.com",
+        placeholderCep: "00000-000",
+        placeholderCity: "Auto-filled from the ZIP code",
         placeholderMsg: "Describe the project scope or your proposal...",
-        submit: "Send Message"
+        submit: "Send via WhatsApp",
+        cepLoading: "Looking up city...",
+        cepError: "ZIP code not found. Please fill in the city manually.",
+        errors: {
+          required: "Required field.",
+          invalidEmail: "Enter a valid e-mail.",
+          maxLength: "E-mail must be at most 200 characters.",
+          invalidPhone: "Enter a valid phone number with area code.",
+          invalidCep: "ZIP code must have 8 digits."
+        }
       }
     },
    footer: {

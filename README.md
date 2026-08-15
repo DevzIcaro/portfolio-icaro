@@ -44,6 +44,7 @@ Este portfolio reune secoes institucionais e profissionais em uma experiencia si
 |-- src/
 |   |-- assets/             # Imagens utilizadas nas secoes
 |   |-- components/         # Componentes React da interface
+|   |   `-- ui/              # Primitivos gerados pelo Shadcn UI
 |   |-- context/            # Contexto global de idioma
 |   |-- i18n/               # Configuracoes e traducoes PT/EN
 |   |-- layouts/            # Layout base da aplicacao Astro
@@ -163,18 +164,30 @@ Pontos a decidir quando isso for implementado:
 - Adicionar um novo job `lint` no `deploy.yml` (e no `ci.yml`) antes do job `test`, com `test: needs: lint`.
 - Rodar `pnpm install` localmente depois de adicionar as dependencias novas, pra manter o `pnpm-lock.yaml` sincronizado (o CI usa `--frozen-lockfile`, entao lockfile desatualizado quebra o pipeline).
 
+## Consumo de API
+
+O projeto **nao consome nenhuma API externa/backend**. E um site 100% estatico (Astro + React renderizados em build time), sem `fetch`, `axios` ou chamadas HTTP feitas pela aplicacao. As unicas integracoes de rede sao:
+
+- **Google Tag Manager**: script carregado via tag `<script>` no `Layout.astro` (`src/layouts/Layout.astro`), que injeta o container `GTM-TL65TJRK` e gerencia suas proprias chamadas de rede (fora do controle do codigo da aplicacao).
+- **Links externos**: GitHub, LinkedIn, WhatsApp (`wa.me`) e `mailto:`, todos simples links `<a href>`, sem requisicoes programaticas.
+
+O formulario de contato (`src/components/Contacts.tsx`) existe apenas como codigo comentado/nao habilitado — nao ha submissao real nem endpoint configurado.
+
 ## Analytics
 
-O projeto possui um helper tipado para eventos enviados ao `dataLayer`, incluindo:
+O projeto possui um helper tipado (`trackAppEvent`) para eventos enviados ao `dataLayer`, com contratos definidos em `src/utils/analyticsContracts.ts`.
 
-- Cliques de navegacao.
-- Troca de idioma.
-- Download de curriculo.
-- Envio de formulario de contato.
-- Cliques em redes sociais.
-- Selecao de filtros de projetos.
+Eventos ja disparados na interface:
 
-Os contratos desses eventos ficam em `src/utils/analyticsContracts.ts`.
+- `navigation_click` — cliques de navegacao (menu desktop/mobile).
+- `language_change` — troca de idioma PT/EN.
+- `social_click` — cliques em redes sociais (GitHub, LinkedIn, WhatsApp, e-mail).
+- `project_selection` — selecao de filtro de categoria dos projetos.
+
+Eventos definidos no contrato mas ainda **nao conectados** a nenhuma acao da UI (reservados para uso futuro):
+
+- `download_cv` — download de curriculo (nao ha botao/arquivo de CV implementado ainda).
+- `contact_form_submit` — envio de formulario de contato (o formulario esta comentado no codigo, ver secao acima).
 
 ## Contato
 
